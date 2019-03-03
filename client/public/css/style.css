@@ -2617,8 +2617,29 @@ img {
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
+#aa-signin .aa-signin-area .aa-signin-form .aa-single-submit input[type="noSubmit"] {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  height: 50px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 6px 12px;
+  width: 200px;
+  text-align: center;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
 #aa-signin .aa-signin-area .aa-signin-form .aa-single-submit input[type="submit"]:hover {
   background-color: #FFF;
+}
+#aa-signin .aa-signin-area .aa-signin-form .aa-single-submit input[type="noSubmit"]:hover {
+  background-color: #FFF;
+  cursor:pointer;
+  user-select: none;
 }
 #aa-signin .aa-signin-area .aa-signin-form .aa-single-submit p {
   color: #000;
@@ -3403,6 +3424,14 @@ img {
   }
 
   #aa-signin .aa-signin-area .aa-signin-form .aa-single-submit input[type="submit"] {
+    font-size: 15px;
+    height: 45px;
+    margin-bottom: 15px;
+    margin-top: 0;
+    padding: 4px 8px;
+    width: 140px;
+  }
+  #aa-signin .aa-signin-area .aa-signin-form .aa-single-submit input[type="noSubmit"] {
     font-size: 15px;
     height: 45px;
     margin-bottom: 15px;

@@ -29,16 +29,34 @@ class HeaderTop extends Component  {
     }
 
     renderUser() {
-        return [
-            <button key="1" onClick={this.popupRegisterToggle.bind(this)} className="aa-register">Register</button>,
-            <button key="2" onClick={this.popupLoginToggle.bind(this)} className="aa-login"> &nbsp;&nbsp;Login&nbsp;&nbsp; </button>
-        ]
+        // return [
+        //     <button key="1" onClick={this.popupRegisterToggle.bind(this)} className="aa-register">Register</button>,
+        //     <button key="2" onClick={this.popupLoginToggle.bind(this)} className="aa-login"> &nbsp;&nbsp;Login&nbsp;&nbsp; </button>
+        // ]
+        switch (this.props.auth){
+            case null:
+                return;
+            case false:
+                return [
+                    <button key="1" onClick={this.popupRegisterToggle.bind(this)} className="aa-register">Register</button>,
+                    <button key="2" onClick={this.popupLoginToggle.bind(this)} className="aa-login"> &nbsp;&nbsp;Login&nbsp;&nbsp; </button>
+                ]
+                
+            default:
+               return [
+                    
+                    <span key="1" style={{color: 'white'}}>{this.props.auth.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>,
+                    <button key="2" className="aa-login"><a href="/api/logout">Log out</a></button>
+                ]
+            }
                 
         
     }
 
     render() {
-        console.log(this.props);
+        
+        console.log("HeaderTop props.auth?");
+        console.log(this.props.auth);
         return (
         
             <header id="aa-header">  

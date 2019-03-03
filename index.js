@@ -2,8 +2,16 @@ const express = require('express');
 const cookieSession = require('cookie-session');
 
 const mongoose = require('mongoose');
+const passport = require('passport'); 
 const {mongoURI, cookieKey} = require('./config/keys');
 const bodyParser = require('body-parser')
+
+require('./models/User');
+require('./models/Property');
+require('./services/passport');
+
+
+
 
 
 mongoose.connect(mongoURI);
@@ -21,6 +29,15 @@ app.use(
         keys: [cookieKey] // to encript cookie, can provide multiple it will randomly choose
     })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+require('./routes/authRoutes')(app);
+require('./routes/registerUserRoutes')(app);
+require('./routes/myListRoutes')(app);
+require('./routes/propertyRoutes')(app);
 
 
 

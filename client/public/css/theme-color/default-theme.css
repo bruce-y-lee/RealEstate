@@ -261,7 +261,15 @@ h2 {
   background-color: #59abe3;
   border: 2px solid #59abe3;
 }
+#aa-signin .aa-signin-area .aa-signin-form .aa-single-submit input[type="noSubmit"] {
+  background-color: #59abe3;
+  border: 2px solid #59abe3;
+}
 #aa-signin .aa-signin-area .aa-signin-form .aa-single-submit input[type="submit"]:hover {
+  color: #59abe3;
+  border-color: #59abe3;
+}
+#aa-signin .aa-signin-area .aa-signin-form .aa-single-submit input[type="noSubmit"]:hover {
   color: #59abe3;
   border-color: #59abe3;
 }
