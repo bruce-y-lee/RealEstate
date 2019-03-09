@@ -46,7 +46,8 @@ class HeaderTop extends Component  {
                return [
                     
                     <span key="1" style={{color: 'white'}}>{this.props.auth.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>,
-                    <button key="2" className="aa-login"><a href="/api/logout">Log out</a></button>
+                    <button key="2" className="aa-login"><a href={`/mylist/${this.props.auth._id}`}>my List</a></button>,
+                    <button key="3" className="aa-login"><a href="/api/logout">Log out</a></button>
                 ]
             }
                 

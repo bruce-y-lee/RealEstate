@@ -8,5 +8,5 @@ module.exports = function(app) {
     app.use(proxy('/api/*', { target: 'http://localhost:5000' }))
     app.use(proxy('/api/current_user', { target: 'http://localhost:5000' }))
     app.use(proxy('/api/properties/*', {target: 'http://localhost:5000'}))
-    app.use(proxy('/api/surveys/*/*', {target: 'http://localhost:5000'}))
+    app.use(proxy('/api/mylist/*', {target: 'http://localhost:5000'}))
 }

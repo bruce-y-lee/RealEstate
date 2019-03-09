@@ -29,6 +29,7 @@ class Register extends Component{
         if(this.state.password === this.state.confirmPassword){
             console.log("axios post jwt registeruser")
             const res = await axios.post('/jwt/registerUser',{name:this.state.name, email: this.state.email, password: this.state.password });
+            // return axios.post('/jwt/registerUser',{name:this.state.name, email: this.state.email, password: this.state.password });
             console.log(res);
             window.location= '/';
         }

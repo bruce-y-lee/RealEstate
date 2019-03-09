@@ -9,13 +9,14 @@ import Header from './Header';
 import Slider from './Slider';
 import PropertyList from './properties/PropertyList';
 import PropertyDetail from './properties/PropertyDetail';
-import AdvanceSearch from './AdvanceSearch';
+import AdvanceSearch from './properties/AdvanceSearch';
+import MyList from './properties/MyList';
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
-    // console.log("App props")
-    // console.log(this.props);
+    console.log("App props")
+    console.log(this.props);
     // console.log(this.state)
   } 
   render() {
@@ -27,6 +28,8 @@ class App extends Component {
           <Route exact path='/' component={Slider} />  
           <Route exact path='/' component={AdvanceSearch} />
           <Route exact path="/properties" component={PropertyList}/>
+          <Route path="/mylist/:userId" component={MyList}/>
+          {/* <Route exact path="/properties/searched" component={PropertyListSearched}/> */}
           <Route exact path='/properties/:propertyId' component={PropertyDetail}/>
         </div>
       
