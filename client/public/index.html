@@ -11,6 +11,7 @@
 
     <!-- Font awesome -->
     <link href="css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">   
     <!-- slick slider -->
@@ -22,6 +23,11 @@
     <!-- Theme color -->
     <link id="switcher" href="css/theme-color/default-theme.css" rel="stylesheet">     
 
+
+    <!-- socketChat style -->
+    <link rel="stylesheet" type="text/css" href="css/socketChat.css">
+    <!-- font-awesome -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
     <!-- Main style sheet -->
     <link href="css/style.css" rel="stylesheet">    
 
@@ -91,7 +97,106 @@
   <!-- Advance Search -->
   
   <!-- / Advance Search -->
+<!-- Chat -->
 
+  
+  <div class="socketChat-float">
+    <!-- <i class="fa fa-rocketchat my-float"></i> -->
+
+
+    <i class="fab fa-rocketchat socketChat-my-float" ></i>
+
+  </div>
+    <div class="socketChat-label-container">
+    <div class="socketChat-label-text">Chat with Agent</div>
+    <!-- <i class="fa fa-play socketChat-label-arrow"></i> -->
+    </div>
+  
+
+
+    <div id="centered-form-wrapper" class="centered-form animate">
+      <div class="centered-form__form">
+        <form id="centered-form" >
+        <div class="form-field">
+          <h3>Chat with Agent</h3>
+        </div>
+  
+
+        <div class="form-field">
+          <label>Display name</label>
+          <input type="text" name="chatJoinName" autofocus />
+        </div>
+        <div class="form-field">
+          <label>Room name</label>
+          <input type="text" name="room" />
+        </div>
+        <div class="form-field">
+          <button>Join</button>
+        </div>
+        
+        </form>
+      </div>
+    </div>
+
+    <div id="centered-form-wrapper-agent" class="centered-form animate">
+      <div class="centered-form__form">
+        <form id="centered-form-agent" >
+        <div class="form-field">
+          <h3>Chat with Client</h3>
+        </div>
+  
+
+        <div class="form-field">
+          <label>Agent name</label>
+          <input type="text" name="chatJoinNameAgent" autofocus />
+        </div>
+        <div class="form-field">
+          <label>Chat Waiting List</label>
+          <div id="userList" class="form-field" ></div>
+          <input type="text" name="chatJoinRoom" />
+          
+        </div>
+        <div class="form-field">
+          <button>Join</button>
+        </div>
+        
+        </form>
+      </div>
+    </div>
+    
+  <div id="socketChat-wrapper" class="socketChat animate">
+  
+       <span onclick="document.getElementById('socketChat-wrapper').style.display='none'" class="socketChat-close" title="Close PopUp">&times;</span> 
+          
+          <div class="chat">
+      
+            <div class="chat__main">
+              <ol id="messages" class="chat__messages"></ol>
+      
+            <div class="socketChat-chat__footer">
+              <form id="message-form" class="form__message">
+                <input name="message" type="text" placeholder="Message" autofocus autocomplete="off"/>
+                <button>Send</button>
+      
+              </form>
+              
+            </div>
+
+            
+      
+      
+      
+            </div>
+  
+    
+  
+         </div>
+
+    </div>
+
+
+
+    <!-- / Chat-->
   <!-- About us -->
   <section id="aa-about-us">
     <div class="container">
@@ -816,6 +921,9 @@
   <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
   <!-- Custom js -->
   <script src="js/custom.js"></script> 
+  <script src="socket.io/socket.io.js"></script>
+  <script src="js/socketChat.js"></script>
+  <script src="js/libs/moment.js"></script>
 
   </body>
 </html>

@@ -1,3 +1,4 @@
+const http = require('http')
 const express = require('express');
 const cookieSession = require('cookie-session');
 
@@ -5,6 +6,9 @@ const mongoose = require('mongoose');
 const passport = require('passport'); 
 const {mongoURI, cookieKey} = require('./config/keys');
 const bodyParser = require('body-parser')
+const socketIO = require('socket.io');
+const {generateMessage} = require('./utils/message');
+
 
 require('./models/User');
 require('./models/Property');
@@ -52,8 +56,25 @@ if(process.env.NODE_ENV === 'production') {
       });
 }
 
+
+
+
+
+
+var server = http.createServer(app);
+
+require('./services/socketio')(server);
+
+
+
+
+
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT,()=>{
+// app.listen(PORT,()=>{
+//     console.log(`Server is on ${PORT}`);
+// });
+
+server.listen(PORT,()=>{
     console.log(`Server is on ${PORT}`);
 });
