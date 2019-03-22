@@ -1,0 +1,15 @@
+{"from":"Admin","text":"Hello Alg! Welcome to the chat. Agent will join the chat soon.","createdAt":1553287741432}
+{"from":"Admin","text":"Hello Alg! Welcome to the chat. Agent will join the chat soon.","createdAt":1553287741433}
+{"from":"Alg","text":"Test log file","createdAt":1553287747340}
+{"from":"Alg","text":"helele","createdAt":1553287748975}
+{"from":"Alg","text":"heleofas","createdAt":1553287750284}
+{"from":"Admin","text":"Hello AAg! Welcome to the chat. Agent will join the chat soon.","to":"AAg","createdAt":1553288216402}
+{"from":"Admin","text":"AAg has joined","to":"AAg","createdAt":1553288216403}
+{"from":"AAg","text":"Uers room me","to":"AAg","createdAt":1553288220570}
+{"from":"AAg","text":"tests","to":"AAg","createdAt":1553288221905}
+{"from":"AAg","text":"aidsf ","to":"AAg","createdAt":1553288223207}
+{"from":"AAg","text":"sfsf","to":"AAg","createdAt":1553288224163}
+{"from":"Admin","text":"Hello Agent! Welcome to the chat. Agent will join the chat soon.","to":"AAg","createdAt":1553288284727}
+{"from":"Admin","text":"Agent has joined","to":"AAg","createdAt":1553288284728}
+{"from":"Agent","text":"Heelo","to":"AAg","createdAt":1553288288229}
+{"from":"Agent","text":"this is agent","to":"AAg","createdAt":1553288292108}

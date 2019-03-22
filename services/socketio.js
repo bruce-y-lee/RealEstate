@@ -2,6 +2,10 @@ const socketIO = require('socket.io');
 const {generateMessage} = require('../utils/message');
 const {isRealString} = require('../utils/isRealString');
 const {ChatUsers} = require('../utils/ChatUsers');
+var fs = require('fs');
+
+
+var chatStream = fs.createWriteStream('./logs/chatLogs.txt',{flags:'a'});
 
 
 module.exports = server => {
@@ -34,11 +38,12 @@ module.exports = server => {
 
       //io.emit send message to evverybody connected
 //socket.emit from Admin text welcome to the chat ap
-    socket.emit('newMessage', generateMessage('Admin',` Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`));
-  
+    socket.emit('newMessage', generateMessage('Admin',`Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`));
+    console.log("type generate message ", typeof (generateMessage('Admin',`Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`,params.room)))
+    chatStream.write(JSON.stringify(generateMessage('Admin',`Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`,params.room))+"\n",'utf-8');
     //socket.broadcast.emit from Admin text New user joined except the new user
-    socket.broadcast.to(params.room).emit('newMessage',generateMessage('Admin', `${params.name} has joined`));
-  
+    socket.broadcast.to(params.room).emit('newMessage',generateMessage('Admin', `${params.name} has joined`,params.room));
+    chatStream.write(JSON.stringify(generateMessage('Admin',`${params.name} has joined`,params.room))+"\n",'utf-8');
 
     })
 
@@ -51,7 +56,8 @@ module.exports = server => {
 
         var user = users.getUser(socket.id);
         if(user && isRealString(message.text)){
-          io.to(user.room).emit('newMessage', generateMessage(user.name,message.text));
+          io.to(user.room).emit('newMessage', generateMessage(user.name,message.text,user.room));
+          chatStream.write(JSON.stringify(generateMessage(user.name,message.text,user.room))+"\n",'utf-8');
         }
         //send message all but me
         // socket.broadcast.emit('newMessage',{
@@ -69,9 +75,15 @@ module.exports = server => {
 
       if(user){
         io.to(user.room).emit('updateUserList', users.getUserList(user.room));
-        io.to(user.room).emit('newMessage',generateMessage('Admin',`${user.name} has left.`));
+        io.to(user.room).emit('newMessage',generateMessage('Admin',`${user.name} has left.`,user.room));
+        chatStream.write(JSON.stringify(generateMessage('Admin',`${user.name} has left.`,user.room))+"\n",'utf-8');
+        
       }
+
+    
       })
 })
-
+chatStream.on('error', function(err){
+    console.log(err.stack);
+});
 };
