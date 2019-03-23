@@ -11,6 +11,7 @@ import PropertyList from './properties/PropertyList';
 import PropertyDetail from './properties/PropertyDetail';
 import AdvanceSearch from './properties/AdvanceSearch';
 import MyList from './properties/MyList';
+import Contact from './Contact';
 
 class App extends Component {
   componentDidMount() {
@@ -31,6 +32,7 @@ class App extends Component {
           <Route path="/mylist/:userId" component={MyList}/>
           {/* <Route exact path="/properties/searched" component={PropertyListSearched}/> */}
           <Route exact path='/properties/:propertyId' component={PropertyDetail}/>
+          <Route exact path='/contact' component={Contact} />  
         </div>
       
       

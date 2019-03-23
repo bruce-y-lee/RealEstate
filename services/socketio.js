@@ -39,7 +39,7 @@ module.exports = server => {
       //io.emit send message to evverybody connected
 //socket.emit from Admin text welcome to the chat ap
     socket.emit('newMessage', generateMessage('Admin',`Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`));
-    console.log("type generate message ", typeof (generateMessage('Admin',`Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`,params.room)))
+    // console.log("type generate message ", typeof (generateMessage('Admin',`Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`,params.room)))
     chatStream.write(JSON.stringify(generateMessage('Admin',`Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`,params.room))+"\n",'utf-8');
     //socket.broadcast.emit from Admin text New user joined except the new user
     socket.broadcast.to(params.room).emit('newMessage',generateMessage('Admin', `${params.name} has joined`,params.room));

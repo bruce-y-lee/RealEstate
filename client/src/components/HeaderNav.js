@@ -38,7 +38,7 @@ const HeaderNav = () => {
                     <li><a href="blog-single.html">BLOG DETAILS</a></li>                                            
                 </ul>
                 </li>
-                <li><a href="contact.html">CONTACT</a></li>
+                <li><a href="/contact">CONTACT</a></li>
             <li><a href="404.html">404 PAGE</a></li>
             </ul>                            
             </div>

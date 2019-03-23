@@ -42,6 +42,7 @@ require('./routes/authRoutes')(app);
 require('./routes/registerUserRoutes')(app);
 require('./routes/myListRoutes')(app);
 require('./routes/propertyRoutes')(app);
+require('./routes/etcRoutes')(app);
 
 
 
