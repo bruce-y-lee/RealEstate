@@ -30,7 +30,7 @@ class Contact extends Component {
                     <div className="aa-property-header-inner">
                         <h2>Contact</h2>
                         <ol className="breadcrumb">
-                        <li><a href="#">HOME</a></li>            
+                        <li><a href="/">HOME</a></li>            
                         <li className="active">Contact</li>
                     </ol>
                     </div>
@@ -95,7 +95,7 @@ class Contact extends Component {
                         <div className="aa-contact-area">
                             <div className="aa-contact-top">
                             <div className="aa-contact-top-left">
-                                <iframe width="100%" height="450" frameBorder="0" allowFullScreen="" style={{border:"0"}} src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJs0-pQ_FzhlQRi_OBm-qWkbs&key=AIzaSyAf_FXuOWdjTUcby3nfonQwFZUy5Wcrqe8"></iframe>
+                                <iframe width="100%" height="450" frameBorder="0" allowFullScreen="" style={{border:"0"}} title="locationMap"src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJs0-pQ_FzhlQRi_OBm-qWkbs&key=AIzaSyAf_FXuOWdjTUcby3nfonQwFZUy5Wcrqe8"></iframe>
                             </div>
                             <div className="aa-contact-top-right">
                                 <h2>Contact</h2>

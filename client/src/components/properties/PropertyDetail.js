@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchProperty, fetchUser } from '../../actions';
-import { Redirect } from 'react-router'
+import { fetchProperty, fetchPropertiesNear} from '../../actions';
+
 import axios from 'axios';
 // import { fetchProperties } from '../../actions';
 // import {withRouter} from 'react-router-dom';
@@ -9,19 +9,37 @@ const pStyle = {
     backgroundColor: '#b57de0',
     margin: '0px 50px'
   };
+
 class PropertyDetail extends Component {
+    
     componentDidMount() {
-        if(this.props.match)
-        this.props.fetchProperty(this.props.match.params.propertyId);
+        if(this.props.match){
+            console.log("this.props.match")
+
+            this.props.fetchProperty(this.props.match.params.propertyId);
+
+            this.props.fetchPropertiesNear(this.props.match.params.propertyId);
+            
+        }
         else{
+            console.log("no this.props.match")
+            
             this.props.fetchProperty(this.props.propertyId);
+            this.props.fetchPropertiesNear(this.props.propertyId);
+            
+
         }
         // this.props.fetchUser();
         // console.log("PropertyDetails");
         // console.log(this.props.match.params.propertyId);
+        // console.log(this.props);
+        
+            
+
     }
     
     propertyHeader(){
+        console.log(this.props)
         return (
            
             <section id="aa-property-header">
@@ -31,8 +49,8 @@ class PropertyDetail extends Component {
                   <div className="aa-property-header-inner">
                     <h2>Properties Details</h2>
                     <ol className="breadcrumb">
-                    <li><a href="#">HOME</a></li>            
-                    <li className="active">{this.props.properties.title}</li>
+                    <li><a href="/">HOME</a></li>            
+                    <li className="active">{this.props.properties && this.props.properties.title ? this.props.properties.title:null}</li>
                   </ol>
                   </div>
                 </div>
@@ -45,6 +63,8 @@ class PropertyDetail extends Component {
         // console.log(this.props.properties.features);
         // let features = this.props.properties.features.split(" ").trim();
         let feat = this.props.properties.features;
+        // let city = this.props.properties.address;
+        // console.log("city", feat);
         
         if(typeof(feat) == 'string'){
             // console.log(features);
@@ -85,6 +105,63 @@ class PropertyDetail extends Component {
             window.location= `/mylist/${this.props.auth._id}`;
         
     }
+    renderSaleTag = (type)=>{
+        if(type==='for-rent'){
+            return "For Rent"
+        }else if (type ==='for-sale'){
+            return "For Sale"
+        }else{
+            return "Sold Out"
+        }
+
+    }
+    renderNearProperties = (fetchedData) => {
+        return fetchedData.map(property => {
+            return (
+                <div className="col-md-6" key={`nearProperty ${property._id}`}>
+                <article className="aa-properties-item">
+                    <a className="aa-properties-item-img" href={`/properties/${property._id}`}>
+                    <img alt="img" src={`img/item/${property.images[0]}`}/>
+                    </a>
+                    <div className={`aa-tag ${property.saleType}`}>
+                    {this.renderSaleTag(property.saleType)}
+                    </div>
+                    <div className="aa-properties-item-content">
+                    <div className="aa-properties-info">
+                        <span>{property.bedrooms} Rooms</span>
+                        
+                        <span>{property.bathrooms} Baths</span>
+                        <span>{property.sq} SQ FT</span>
+                        <span>{property.address.city}</span>
+                    </div>
+                    <div className="aa-properties-about">
+                        <h3><a href={`/properties/${property._id}` }>{property.title}</a></h3>
+                        <p>{property.body}</p>                      
+                    </div>
+                    <div className="aa-properties-detial">
+                        <span className="aa-price">
+                        ${property.price}
+                        </span>
+                        <a className="aa-secondary-btn" href={`/properties/${property._id}`}>View Details</a>
+                    </div>
+                    </div>
+                </article>
+                </div>
+            )
+        })
+    }
+
+    fetchNearProperties = async (city) => {
+        // if(this.props.properties){
+            // console.log(this.props.address.city);
+            // var nearProperties;
+            // if(this.props.properties.address && this.props.properties.address.city){
+               var result= await axios.get(`/api/properties/${city}`);
+            //    if(nearProperties)
+               return this.renderNearProperties(result.data)
+           
+    
+    }
     propertyBody() {
         return (
             <section id="aa-properties">
@@ -94,15 +171,20 @@ class PropertyDetail extends Component {
                         <div className="aa-properties-content"></div>
                             <div className="aa-properties-details">
                             <div className="aa-properties-details-img">
-                            <img src="img/slider/1.jpg" alt="img"/>
-                            {this.props.deleteProperty? null : <img src="img/slider/2.jpg" alt="img"/>
+                            <img src={`img/item/${this.props.properties.images && this.props.properties.images[0]? this.props.properties.images[0]:null}`} alt="img"/>
+                            {this.props.deleteProperty? null : <img src={`img/item/${this.props.properties.images && this.props.properties.images[1]? this.props.properties.images[1]:null}`} alt="img"/>
                              }
-                            {this.props.deleteProperty? null : <img src="img/slider/3.jpg" alt="img"/>
+                            {this.props.deleteProperty? null : <img src={`img/item/${this.props.properties.images && this.props.properties.images[2]? this.props.properties.images[2]:null}`} alt="img"/>
                              }
-                            
+                            {this.props.deleteProperty? null : <img src={`img/item/${this.props.properties.images && this.props.properties.images[3]? this.props.properties.images[3]:null}`} alt="img"/>
+                             }
+                            {this.props.deleteProperty? null : <img src={`img/item/${this.props.properties.images && this.props.properties.images[4]? this.props.properties.images[4]:null}`} alt="img"/>
+                            }
                             </div>
                             <div className="aa-properties-info">
                             <h2>{this.props.properties.title}</h2>
+                            <h3>{this.props.properties.address && this.props.properties.address.streetAddress ? this.props.properties.address.streetAddress:null}, &nbsp;
+                            {this.props.properties.address && this.props.properties.address.city ? this.props.properties.address.city: null}</h3>
                             <span className="aa-price">${this.props.properties.price}</span>
                             {this.props.deleteProperty? <button className="aa-secondary-btn" style={pStyle} onClick={this.handleDelete}> Remove from My List</button>: 
                         <button className="aa-secondary-btn" style={pStyle} onClick={this.handleClick}>Add myList</button>}
@@ -112,85 +194,34 @@ class PropertyDetail extends Component {
                             <ul>
                                 {this.propertyFeatures()}
                             </ul>
+                             
                             <h4>Property Video</h4>
-                            <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" frameBorder="0" allowFullscreen></iframe>
+                            <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" title="propertyVideo"frameBorder="0" allowFullScreen></iframe>
                             <h4>Property Map</h4>
-                            <iframe src="https://www.google.com/maps/embed/v1/place?q=40.7127837,-74.0059413&key=AIzaSyAf_FXuOWdjTUcby3nfonQwFZUy5Wcrqe8" width="100%" height="450" frameBorder="0" style={{border: "0"}} allowFullscreen></iframe>
+                            <iframe src="https://www.google.com/maps/embed/v1/place?q=40.7127837,-74.0059413&key=AIzaSyAf_FXuOWdjTUcby3nfonQwFZUy5Wcrqe8" width="100%" height="450" title="propertyMap" frameBorder="0" style={{border: "0"}} allowFullScreen></iframe>
                             </div>
                             {/* <!-- Properties social share --> */}
                             <div className="aa-properties-social">
                             <ul>
                                 <li>Share</li>
-                                <li><a href="#"><i className="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i className="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i className="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i className="fa fa-pinterest"></i></a></li>
+                                <li><a href="/"><i className="fa fa-facebook"></i></a></li>
+                                <li><a href="/"><i className="fa fa-twitter"></i></a></li>
+                                <li><a href="/"><i className="fa fa-google-plus"></i></a></li>
+                                <li><a href="/"><i className="fa fa-pinterest"></i></a></li>
                             </ul>
                             </div>
                             {/* <!-- Nearby properties --> */}
                             <div className="aa-nearby-properties">
                             <div className="aa-title">
+                            
                                 <h2>Nearby Properties</h2>
                                 <span></span>
                             </div>
                             <div className="aa-nearby-properties-area">
                                 <div className="row">
-                                <div className="col-md-6">
-                                    <article className="aa-properties-item">
-                                        <a className="aa-properties-item-img" href="#">
-                                        <img alt="img" src="img/item/1.jpg"/>
-                                        </a>
-                                        <div className="aa-tag for-sale">
-                                        For Sale
-                                        </div>
-                                        <div className="aa-properties-item-content">
-                                        <div className="aa-properties-info">
-                                            <span>5 Rooms</span>
-                                            <span>2 Beds</span>
-                                            <span>3 Baths</span>
-                                            <span>1100 SQ FT</span>
-                                        </div>
-                                        <div className="aa-properties-about">
-                                            <h3><a href="#">Appartment Title</a></h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim molestiae vero ducimus quibusdam odit vitae.</p>                      
-                                        </div>
-                                        <div className="aa-properties-detial">
-                                            <span className="aa-price">
-                                            $35000
-                                            </span>
-                                            <a className="aa-secondary-btn" href="#">View Details</a>
-                                        </div>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div className="col-md-6">
-                                    <article className="aa-properties-item">
-                                    <a className="aa-properties-item-img" href="#">
-                                        <img alt="img" src="img/item/2.jpg"/>
-                                    </a>
-                                    <div className="aa-tag for-sale">
-                                        For Sale
-                                    </div>
-                                    <div className="aa-properties-item-content">
-                                        <div className="aa-properties-info">
-                                        <span>5 Rooms</span>
-                                        <span>2 Beds</span>
-                                        <span>3 Baths</span>
-                                        <span>1100 SQ FT</span>
-                                        </div>
-                                        <div className="aa-properties-about">
-                                        <h3><a href="#">Appartment Title</a></h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim molestiae vero ducimus quibusdam odit vitae.</p>                      
-                                        </div>
-                                        <div className="aa-properties-detial">
-                                        <span className="aa-price">
-                                            $35000
-                                        </span>
-                                        <a className="aa-secondary-btn" href="#">View Details</a>
-                                        </div>
-                                    </div>
-                                    </article>
-                                </div>
+                                        {/* {this.props.properties.address && this.props.properties.address.city ? this.fetchNearProperties(this.props.properties._id):null}*/}
+                                        {/* {this.fetchNearProperties(this.props.propertiesNear)} */}
+                                        {this.renderNearProperties(this.props.propertiesNear)}
                                 </div>
                             </div>
 
@@ -207,11 +238,15 @@ class PropertyDetail extends Component {
     }
     render () {
         // console.log("propertyDetails render this.props")
-        console.log(this.props.properties);
+        if(this.props.properties)
+            // console.log(this.props.properties.address.city);
+
+
         return (
                <div>
                     {this.propertyHeader()}
                     {this.propertyBody()}
+                    
                </div>
                    
                      
@@ -223,12 +258,72 @@ class PropertyDetail extends Component {
 //     return {surveys: state.surveys}; // from reducer
 // }
 
-function mapStateToProps({properties, auth}) {
-    // console.log("propertyDetails mapstatetoProps state")
+// function mapStateToProps({property, auth}) {
+function mapStateToProps({properties,auth,propertiesNear}) {
+
     // console.log(state);
-    // console.log(auth)
-    return {properties,auth}; // from reducer
+    // if(properties.length >0)
+        return {properties, auth, propertiesNear}; // from reducer
+    
+    // return state; // from reducer
 }
 
 // export default connect(null, { fetchProperty })(PropertyDetail);
-export default connect(mapStateToProps, {fetchProperty})(PropertyDetail);
+export default connect(mapStateToProps, {fetchProperty, fetchPropertiesNear })(PropertyDetail);
+
+{/* <div className="col-md-6">
+                                    <article className="aa-properties-item">
+                                        <a className="aa-properties-item-img" href="_blank">
+                                        <img alt="img" src="img/item/1.jpg"/>
+                                        </a>
+                                        <div className="aa-tag for-sale">
+                                        For Sale
+                                        </div>
+                                        <div className="aa-properties-item-content">
+                                        <div className="aa-properties-info">
+                                            <span>5 Rooms</span>
+                                            <span>2 Beds</span>
+                                            <span>3 Baths</span>
+                                            <span>1100 SQ FT</span>
+                                        </div>
+                                        <div className="aa-properties-about">
+                                            <h3>Appartment Title</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim molestiae vero ducimus quibusdam odit vitae.</p>                      
+                                        </div>
+                                        <div className="aa-properties-detial">
+                                            <span className="aa-price">
+                                            $35000
+                                            </span>
+                                            <a className="aa-secondary-btn" href="_blank">View Details</a>
+                                        </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div className="col-md-6">
+                                    <article className="aa-properties-item">
+                                    <a className="aa-properties-item-img" href="_blank">
+                                        <img alt="img" src="img/item/2.jpg"/>
+                                    </a>
+                                    <div className="aa-tag for-sale">
+                                        For Sale
+                                    </div>
+                                    <div className="aa-properties-item-content">
+                                        <div className="aa-properties-info">
+                                        <span>5 Rooms</span>
+                                        <span>2 Beds</span>
+                                        <span>3 Baths</span>
+                                        <span>1100 SQ FT</span>
+                                        </div>
+                                        <div className="aa-properties-about">
+                                        <h3>Appartment Title</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim molestiae vero ducimus quibusdam odit vitae.</p>                      
+                                        </div>
+                                        <div className="aa-properties-detial">
+                                        <span className="aa-price">
+                                            $35000
+                                        </span>
+                                        <a className="aa-secondary-btn" href="_blank">View Details</a>
+                                        </div>
+                                    </div>
+                                    </article>
+                                </div> */}

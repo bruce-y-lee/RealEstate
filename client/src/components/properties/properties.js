@@ -3,32 +3,7 @@ import _ from 'lodash';
 import Pagenation from './Pagenation';
 
 
-// const paganation =() =>{
-//     return(
-//         <div className="aa-properties-content-bottom">
-//           <nav>
-//             <ul className="pagination">
-//               <li>
-//                 <a href="#" aria-label="Previous">
-//                   <span aria-hidden="true">&laquo;</span>
-//                 </a>
-//               </li>
-//               <li><a href="#">1</a></li>
-//               <li><a href="#">2</a></li>
-//               <li className="active"><a href="#">3</a></li>
-//               <li><a href="#">4</a></li>
-//               <li><a href="#">5</a></li>
-//               <li>
-//                 <a href="#" aria-label="Next">
-//                   <span aria-hidden="true">&raquo;</span>
-//                 </a>
-//               </li>
-//             </ul>
-//           </nav>
-//         </div>
-    
-//     ) 
-// }
+
 
 class Properties extends Component {
     state={
@@ -51,8 +26,8 @@ class Properties extends Component {
             selectedPage: number
         })
     }
-    componentDidUpdate(){
-        console.log(this.props.data.length);
+    // componentDidUpdate(){
+        // console.log(this.props.data.length);
         // console.log(Math.ceil(11/10));
         // this.setState({
         //     pageNumber: Math.ceil(this.props.data.length/10)
@@ -73,25 +48,36 @@ class Properties extends Component {
 
             
         // }
-    }
+    // }
+    renderSaleTag = (type)=>{
+        if(type==='for-rent'){
+            return "For Rent"
+        }else if (type ==='for-sale'){
+            return "For Sale"
+        }else{
+            return "Sold Out"
+        }
 
+    }
     renderPropeerties = (dataArg) => {
         let data;
-        console.log(this.state.selectedPage);
+        // console.log(this.state.selectedPage);
         if(this.state.selectedPage && this.state.selectedPage > 1)
             data = dataArg.slice((this.state.selectedPage-1)*10,this.state.selectedPage*10);
         else
             data = dataArg.slice(0,10);
-        // return data.map(property => {
+        
         return _.map(data, (property) => {
+            // const rand = parseInt(min + Math.random() * (max - min));
+            // console.log(rand);
             return (
                 <li key={property._id}>
                   <article className="aa-properties-item">
-                    <a className="aa-properties-item-img" href="#">
-                      <img alt="img" src="img/item/6.jpg"/>
+                    <a className="aa-properties-item-img" href={`/properties/${property._id}` }>
+                      <img alt="img" src={`img/item/${property.images[0]}`}/>
                     </a>
-                    <div className={`aa-tag ${property.sold ? "sold-out":"for-sale"}`}>
-                      {property.sold ? "Sold Out" : "For Sale"}
+                    <div className={`aa-tag ${property.saleType}`}>
+                    {this.renderSaleTag(property.saleType)}
                     </div>
                     <div className="aa-properties-item-content">
                       <div className="aa-properties-info">
@@ -102,7 +88,7 @@ class Properties extends Component {
                         <span>{property.address.city}</span>
                       </div>
                       <div className="aa-properties-about">
-                        <h3><a href="#">{property.title}</a></h3>
+                        <h3><a href={`/properties/${property._id}` }>{property.title}</a></h3>
                         <p>{property.body}</p>                      
                       </div>
                       <div className="aa-properties-detial">
@@ -149,8 +135,8 @@ class Properties extends Component {
                             </form>
                         </div>
                         <div className="aa-properties-content-head-right">
-                            <a id="aa-grid-properties" href="#"><span className="fa fa-th"></span></a>
-                            <a id="aa-list-properties" href="#"><span className="fa fa-list"></span></a>
+                            <a id="aa-grid-properties" href="_blank" onClick={(e)=>e.preventDefault()}><span className="fa fa-th"></span></a>
+                            <a id="aa-list-properties" href="_blank" onClick={(e)=>e.preventDefault()}><span className="fa fa-list"></span></a>
                         </div>            
                         </div>
                         {/* <!-- Start properties content body --> */}
@@ -160,7 +146,7 @@ class Properties extends Component {
     
                         </ul>
                         </div>
-                        {/* {paganation()} */}
+                        
                         <Pagenation
                             pageNumber = {Math.ceil(this.props.data.length/10)}
                             handlePage = {this.handlePage.bind(this)}

@@ -63,13 +63,13 @@ class Pagenation extends Component{
 
         let list = []
         for(let i=1;i<=props.items;i++){
-            list.push(<li key={i} className={this.state.selected == i? "active":null}><a onClick={this.handleClick.bind(this)} value={i}>{i}</a></li>)
+            list.push(<li key={i} className={this.state.selected === i? "active":null}><a href="/" onClick={this.handleClick.bind(this)} value={i}>{i}</a></li>)
         }
         // console.log(list);
         return(
             <ul className="pagination">
               <li>
-                    <a href="#" aria-label="Previous" onClick={this.handlePrevious.bind(this)}>
+                    <a href="_blank" aria-label="Previous" onClick={this.handlePrevious.bind(this)}>
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -78,7 +78,7 @@ class Pagenation extends Component{
                     )} */}
                     {list}
                 <li>
-                    <a href="#" aria-label="Next" onClick={this.handleNext.bind(this)}>
+                    <a href="_blank" aria-label="Next" onClick={this.handleNext.bind(this)}>
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

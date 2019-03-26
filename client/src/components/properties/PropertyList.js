@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchProperties } from '../../actions';
-import PropertyDetail from './PropertyDetail';
+
 import Properties from './properties';
 
 class PropertyList extends Component {
@@ -17,7 +17,7 @@ class PropertyList extends Component {
                     <div className="aa-property-header-inner">
                         <h2>Properties Page</h2>
                         <ol className="breadcrumb">
-                        <li><a href="#">HOME</a></li>            
+                        <li><a href="/">HOME</a></li>            
                         <li className="active">PROPERTIES</li>
                     </ol>
                     </div>

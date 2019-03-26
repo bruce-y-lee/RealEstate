@@ -47,7 +47,7 @@ class Signin extends Component{
                             <a href="/auth/instagram"><input type="submit" value="Sign In with Instagram" className="aa-browse-btn" name="submit"/></a>  
                             </div>
                             <div className="aa-single-submit">
-                            <p>Don't Have A Account Yet? <a href="#" onClick={this.handleClick.bind(this)}>CREATE NOW!</a></p>
+                            <p>Don't Have A Account Yet? <a href="_blank" onClick={this.handleClick.bind(this)}>CREATE NOW!</a></p>
                             </div>
                         
                         </div>

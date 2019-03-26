@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Redirect } from 'react-router-dom';
+
 
 import _ from 'lodash';
 // import {connect} from 'react-redux';
@@ -30,14 +30,11 @@ const style = { width: 400, margin: 10 };
 //     {label: "Bathrooms", list: ["Bathrooms Min",1,2,3,4,5]}
 // ]
 
-const wrapperStyle = { width: 700, margin: 50 };
+// const wrapperStyle = { width: 700, margin: 50 };
 class AdvanceSearch extends Component {
     state = {
         showSearchedList: false,
-        // areaMin: ,
-        // areaMax: ,
-        // priceMin: ,
-        // priceMax: 
+        
         value1:[1000, 2000],
         value2:[1000000,3000000]
 
@@ -86,14 +83,14 @@ class AdvanceSearch extends Component {
             showSearchedList: true
         });
         // console.log(this.state);
-        // return <Redirect to='/properties' />
+        
         
         
     }
 
     optionGenerate = (list)=> {
         return _.map(list, (item) => {
-            // _.map(FIELDS, field => {
+            
             return (
                 <option
                     key={item}
@@ -118,7 +115,7 @@ class AdvanceSearch extends Component {
 }
     searchRender() {
         // let { value } = this.state
-        let value={ start: 20, end: 80 }
+        // let value={ start: 20, end: 80 }
         return(
             <section id="aa-advance-search">
                 <div className="container">
@@ -209,7 +206,7 @@ class AdvanceSearch extends Component {
                 {this.searchRender()}
                 {/* {this.state.showSearchedList? <Properties data={this.state.propertyData}/>: null} */}
                 {/* {this.state.propertyData} */}
-                {this.state.propertyData? <Properties
+                {this.state.propertyData ? <Properties
                                             data={this.state.propertyData}/>:null}
             </div>
             

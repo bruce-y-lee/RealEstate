@@ -13,6 +13,13 @@ module.exports = app => {
 
         res.send(properties);
     });
+    app.get('/api/properties/latest', async (req, res) => {
+        // req.user
+        console.log(req.body);
+        const properties = await Property.find({saleType:{$ne:"sold-out"}}).sort({_id:1}).limit(6);
+// console.log(properties);
+        res.send(properties);
+    });
     app.post('/api/properties', async (req, res) => {
         // req.user
         console.log(req.body);
@@ -60,11 +67,12 @@ module.exports = app => {
         // req.user
         // console.log("propertyRoutes get /api/properties/:propertyId");
         // console.log(req.params.propertyId);
+        let property;
         if (req.params.propertyIdorQuery.match(/^[0-9a-fA-F]{24}$/)) {
             // it's an ObjectID   
             console.log("it is id")
             try{
-                const property = await Property.findById(req.params.propertyIdorQuery);
+                property = await Property.findById(req.params.propertyIdorQuery);
     
                 res.send(property);
             }
@@ -75,9 +83,48 @@ module.exports = app => {
                 res.redirect('/');
             } 
         } else {
-            // nope
+
+            // it is not id 
+            console.log("it is not id");
+            try{
+                property = await Property.find({"address.city": req.params.propertyIdorQuery}).limit(4);
+                console.log(property);
+                res.send(property);
+            }
+            catch(e){
+                console.log(e.message)
+                res.redirect('/');
+
+            }
             console.log(req.params.propertyIdorQuery);
         }
+        
+        
+        // console.log(property);
+        
+    });
+    app.get('/api/properties/near/:propertyId', async (req, res) => {
+        // req.user
+        // console.log("propertyRoutes get /api/properties/:propertyId");
+        // console.log(req.params.propertyId);
+        let property;
+        let propertyNear;
+        if (req.params.propertyId.match(/^[0-9a-fA-F]{24}$/)) {
+            // it's an ObjectID   
+            console.log("it is id")
+            try{
+                property = await Property.findById(req.params.propertyId);
+                propertyNear = await Property.find({"address.city":property.address.city}).limit(4);
+                res.send(propertyNear);
+            }
+            catch(e){
+                console.log(e.message);
+                // res.send(e.message);
+                // res.status(404).redirect('/');
+                res.redirect('/');
+            } 
+        } 
+        
         
         
         // console.log(property);

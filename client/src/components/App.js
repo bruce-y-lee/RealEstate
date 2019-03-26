@@ -6,12 +6,21 @@ import {connect} from 'react-redux';
 import * as actions from '../actions';
 
 import Header from './Header';
-import Slider from './Slider';
+import Slider from './TopSlider';
 import PropertyList from './properties/PropertyList';
 import PropertyDetail from './properties/PropertyDetail';
 import AdvanceSearch from './properties/AdvanceSearch';
 import MyList from './properties/MyList';
 import Contact from './Contact';
+import aboutUs from './aboutUs';
+import LatestProperties from './properties/LatestProperties';
+import ourService from './ourService';
+import ourAgent from './ourAgent';
+import PromoBanner from './promoBanner';
+
+import Footer from './footer';
+import clientTestimonial from './clientTestimonial';
+import latestNews from './latestNews';
 
 class App extends Component {
   componentDidMount() {
@@ -33,6 +42,16 @@ class App extends Component {
           {/* <Route exact path="/properties/searched" component={PropertyListSearched}/> */}
           <Route exact path='/properties/:propertyId' component={PropertyDetail}/>
           <Route exact path='/contact' component={Contact} />  
+          <Route exact path='/' component={aboutUs}/>
+          <Route exact path='/' component={LatestProperties}/>
+          <Route exact path='/' component={ourService}/>
+          <PromoBanner />
+          <Route exact path='/' component={ourAgent}/>
+          <Route exact path='/' component={clientTestimonial}/>
+          <Route exact path='/' component={latestNews}/>
+
+
+          <Footer />
         </div>
       
       

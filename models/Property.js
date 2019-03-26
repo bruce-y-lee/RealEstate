@@ -19,7 +19,7 @@ const propertySchema = new Schema({
         country: String
     },
     features:String,
-    sold: Boolean,
+    saleType: String,
     images:[],
     videos:[],
     _user: [{type: Schema.Types.ObjectId, ref: 'User'}],

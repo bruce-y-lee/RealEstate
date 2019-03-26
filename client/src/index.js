@@ -12,7 +12,7 @@ import reducers from './reducers';
 
 
 
-import * as serviceWorker from './serviceWorker';
+
 
 import axios from 'axios';
 window.axios = axios;

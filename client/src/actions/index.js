@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {FETCH_USER, FETCH_PROPERTIES} from './types';
+import {FETCH_USER, FETCH_PROPERTIES, FETCH_PROPERTIES_NEAR} from './types';
 
 
 // export const fetchUser = ()=>{
@@ -13,7 +13,7 @@ import {FETCH_USER, FETCH_PROPERTIES} from './types';
 //action creator
 export const fetchUser = () => async dispatch => {
         const res = await axios.get('/api/current_user');
-        console.log("action res.data")
+        console.log("action fetchUser res.data")
         console.log(res.data);
         dispatch({type: FETCH_USER, payload:res.data});
         
@@ -27,6 +27,11 @@ export const registerUser = (user) => async dispatch => {
 };
 export const fetchProperties = () => async dispatch => {
         const res = await axios.get('/api/properties');
+    
+        dispatch({ type: FETCH_PROPERTIES, payload: res.data})
+};
+export const fetchPropertiesLatest = () => async dispatch => {
+        const res = await axios.get('/api/properties/latest');
     
         dispatch({ type: FETCH_PROPERTIES, payload: res.data})
 };
@@ -50,4 +55,11 @@ export const fetchMyList = (userId) => async dispatch => {
         const res = await axios.get(`/api/mylist/${userId}`);
     
         dispatch({ type: FETCH_PROPERTIES, payload: res.data})
+};
+
+export const fetchPropertiesNear = (propertyId) => async dispatch => {
+        console.log("fetch near properties ");
+        const res = await axios.get(`/api/properties/near/${propertyId}`);
+        console.log(res.data);
+        dispatch({ type: FETCH_PROPERTIES_NEAR, payload: res.data})
 };

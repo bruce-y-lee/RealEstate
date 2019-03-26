@@ -35,7 +35,7 @@ class MyList extends Component {
                     <div className="aa-property-header-inner">
                         <h2>My List Page</h2>
                         <ol className="breadcrumb">
-                        <li><a href="#">HOME</a></li>            
+                        <li><a href="/">HOME</a></li>            
                         <li className="active">PROPERTIES</li>
                     </ol>
                     </div>
