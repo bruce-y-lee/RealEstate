@@ -130,6 +130,34 @@ module.exports = app => {
         // console.log(property);
         
     });
+    app.get('/api/propertiespopular', async (req, res) => {
+        // req.user
+        // console.log("propertyRoutes get /api/properties/:propertyId");
+        // console.log(req.params.propertyId);
+        
+        let propertyPopular;
+        // if (req.params.propertyId.match(/^[0-9a-fA-F]{24}$/)) {
+        //     // it's an ObjectID   
+            console.log("popular property")
+            try{
+                // property = await Property.findById(req.params.propertyId);
+                propertyPopular = await Property.find({ $where: "this._user.length > 0" } ).sort({price:1}).limit(4);
+                // console.log(propertyPopular);
+                res.send(propertyPopular);
+            }
+            catch(e){
+                console.log(e.message);
+                // res.send(e.message);
+                // res.status(404).redirect('/');
+                res.redirect('/');
+            } 
+        // } 
+        
+        
+        
+        // console.log(property);
+        
+    });
 
     
 

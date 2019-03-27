@@ -14,10 +14,15 @@ import axios from 'axios';
 
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import PopularProperties from './PopularProperties';
 
 const Range = Slider.Range;
 
+
 const style = { width: 400, margin: 10 };
+const style3 = { width: 500, margin: 10 };
+const style2 = { width: 300, margin: 10 };
+
 
 
 
@@ -84,7 +89,8 @@ class AdvanceSearch extends Component {
         });
         // console.log(this.state);
         
-        
+        if(this.props.search)
+            this.props.search()
         
     }
 
@@ -113,87 +119,138 @@ class AdvanceSearch extends Component {
             );
     
 }
-    searchRender() {
+    searchRender(pathName) {
         // let { value } = this.state
         // let value={ start: 20, end: 80 }
+        // pathName=='/'? "aa":"bb";
         return(
-            <section id="aa-advance-search">
-                <div className="container">
-                <div className="aa-advance-search-area">
-                    <div className="form">
-                    <div className="aa-advance-search-top">
-                        <form onSubmit={this.handleSubmit.bind(this)} >
-                        <div className="row">
-                        <div className="col-md-4">
-                            <div className="aa-single-advance-search">
-                            {this.selectGenerate(selectionField[0])}
-                            </div>
-                        </div>
-                        <div className="col-md-2">
-                            <div className="aa-single-advance-search">
-                            {this.selectGenerate(selectionField[1])}
-                            </div>
-                        </div>
-                        <div className="col-md-2">
-                            <div className="aa-single-advance-search">
-                            {this.selectGenerate(selectionField[2])}
-                        </div>
-                        </div>
-                        <div className="col-md-2">
-                            <div className="aa-single-advance-search">
-                            {this.selectGenerate(selectionField[3])}
-                        </div>
-                        </div>
-                        <div className="col-md-2">
-                            <div className="aa-single-advance-search">
-                            <input className="aa-search-btn" type="submit"  value="Search"/>
-                            </div>
-                        </div>
-                        </div>
-                    </form>
-                    </div>
-                    <div className="aa-advance-search-bottom">
-                    <div className="row">
-                        <div className="col-md-6">
-                        <div className="aa-single-filter-search">
-                            <span>AREA (SQ)</span>
-                            <span>FROM</span>
-                            <span id="skip-value-lower" className="example-val"  ref="areaMin" >{this.state.value1[0]}</span>
-                            <span>TO</span>
-                            <span id="skip-value-upper" className="example-val"  ref="areaMax" >{this.state.value1[1]}</span>
-                            {/* <div id="aa-sqrfeet-range" className="noUi-target noUi-ltr noUi-horizontal noUi-background">
-                            </div>  */}
-                            <div style={style}>
-      {/* <p>Basic Range，`allowCross=false`{this.state.value1[0]}{this.state.value1[1]}</p> */}
-      <Range min={500} max={3000} allowCross={false} defaultValue={[1000, 2000]} onChange={this.handleOnChange} />
-    </div>  
-                        </div>
-                        </div>
-                        <div className="col-md-6">
-                        <div className="aa-single-filter-search">
-                            <span>PRICE ($)</span>
-                            <span>FROM</span>
-                            <span id="skip-value-lower2" className="example-val" ref="priceMin" >{this.numberWithCommas(this.state.value2[0])}</span>
-                            <span>TO</span>
-                            <span id="skip-value-upper2" className="example-val" ref="priceMax" >{this.numberWithCommas(this.state.value2[1])}</span>
-                            {/* <div id="aa-price-range" className="noUi-target noUi-ltr noUi-horizontal noUi-background">
-                            </div>      */}
-                                                    <div className=""style={style}>
-      {/* <p>Basic Range，`allowCross=false`{this.state.value2[0]}{this.state.value2[1]}</p> */}
-      <Range min={500000} max={5000000} allowCross={false} defaultValue={[1000000, 3000000]} onChange={this.handleOnChange2} />
-                        </div> 
-                        </div>
-
-    </div>  
-                    </div>  
-                    </div>
-                    </div>
-                </div>
-                </div>
-               
-
-                
-            </section>
+            <div>
+              {pathName==='/'? <section id="aa-advance-search">
+              <div className="container">
+              <div className="aa-advance-search-area">
+                  <div className="form">
+                  <div className="aa-advance-search-top"> 
+                          <form onSubmit={this.handleSubmit.bind(this)} >
+                          <div className="row">
+                          <div className="col-md-4">
+                              <div className="aa-single-advance-search">
+                              {this.selectGenerate(selectionField[0])}
+                              </div>
+                          </div>
+                          <div className="col-md-2">
+                              <div className="aa-single-advance-search">
+                              {this.selectGenerate(selectionField[1])}
+                              </div>
+                          </div>
+                          <div className="col-md-2">
+                              <div className="aa-single-advance-search">
+                              {this.selectGenerate(selectionField[2])}
+                          </div>
+                          </div>
+                          <div className="col-md-2">
+                              <div className="aa-single-advance-search">
+                              {this.selectGenerate(selectionField[3])}
+                          </div>
+                          </div>
+                          <div className="col-md-2">
+                              <div className="aa-single-advance-search">
+                              <input className="aa-search-btn" type="submit"  value="Search"/>
+                              </div>
+                          </div>
+                          </div>
+                      </form>
+                      </div>
+                      <div className="aa-advance-search-bottom">
+                      <div className="row">
+                          <div className="col-md-6">
+                          <div className="aa-single-filter-search">
+                              <span>AREA (SQ)</span>
+                              <span>FROM</span>
+                              <span id="skip-value-lower" className="example-val"  ref="areaMin" >{this.state.value1[0]}</span>
+                              <span>TO</span>
+                              <span id="skip-value-upper" className="example-val"  ref="areaMax" >{this.state.value1[1]}</span>
+                              {/* <div id="aa-sqrfeet-range" className="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                              </div>  */}
+                              <div style={style}>
+      
+                                <Range min={500} max={3000} allowCross={false} defaultValue={[1000, 2000]} onChange={this.handleOnChange} />
+                              </div>  
+                          </div>
+                          </div>
+                          <div className="col-md-6">
+                          <div className="aa-single-filter-search">
+                              <span>PRICE ($)</span>
+                              <span>FROM</span>
+                              <span id="skip-value-lower2" className="example-val" ref="priceMin" >{this.numberWithCommas(this.state.value2[0])}</span>
+                              <span>TO</span>
+                              <span id="skip-value-upper2" className="example-val" ref="priceMax" >{this.numberWithCommas(this.state.value2[1])}</span>
+                              
+                              <div style={style}>
+       
+                               <Range min={500000} max={5000000} allowCross={false} defaultValue={[1000000, 3000000]} onChange={this.handleOnChange2} />
+                               </div> 
+                          </div>
+  
+                          </div>  
+                      </div>  
+                      </div>
+                      </div>
+                  </div>
+                  </div>
+                 
+  
+                  
+              </section>:
+            <div className="col-md-4">
+            <aside className="aa-properties-sidebar">
+           
+              <div className="aa-properties-single-sidebar">
+                <h3>Properties Search</h3>
+                <form onSubmit={this.handleSubmit.bind(this)} >
+                  <div className="aa-single-advance-search">
+                  {this.selectGenerate(selectionField[0])}
+                  </div>
+                  <div className="aa-single-advance-search">
+                  {this.selectGenerate(selectionField[1])}
+                  </div>
+                  <div className="aa-single-advance-search">
+                  {this.selectGenerate(selectionField[2])}
+                  </div>
+                  <div className="aa-single-advance-search">
+                  {this.selectGenerate(selectionField[3])}
+                  </div>
+                  <div className="aa-single-filter-search">
+                    <span>AREA (SQ)</span>
+                    <span>FROM</span>
+                    <span id="skip-value-lower" className="example-val"  ref="areaMin" >{this.state.value1[0]}</span>
+                    <span>TO</span>
+                    <span id="skip-value-upper" className="example-val"  ref="areaMax" >{this.state.value1[1]}</span>
+                    <div style={style2}>
+                        <Range min={500} max={3000} allowCross={false} defaultValue={[1000, 2000]} onChange={this.handleOnChange} />
+                    </div>                  
+                  </div>
+                  <div className="aa-single-filter-search">
+                    <span>PRICE ($)</span>
+                    <span>FROM</span>
+                    <span id="skip-value-lower2" className="example-val" ref="priceMin" >{this.numberWithCommas(this.state.value2[0])}</span>
+                    <span>TO</span>
+                    <span id="skip-value-upper2" className="example-val" ref="priceMax" >{this.numberWithCommas(this.state.value2[1])}</span>                    
+                    <div style={style2}>
+                    <Range min={500000} max={5000000} allowCross={false} defaultValue={[1000000, 3000000]} onChange={this.handleOnChange2} />
+                    </div>     
+                  </div>
+                  <div className="aa-single-advance-search">
+                    <input type="submit" value="Search" className="aa-search-btn"/>
+                    
+                  </div>
+                </form>
+              </div> 
+              
+              <PopularProperties />
+            </aside>
+          </div> }  
+              </div>
+            
 
         )
     }
@@ -201,9 +258,11 @@ class AdvanceSearch extends Component {
         // console.log("Header props?");
         // console.log(this.props.auth)
         // console.log(this.state)
+        let {location} = window;
+         console.log(location.pathname)
         return (
             <div>
-                {this.searchRender()}
+                {this.searchRender(location.pathname)}
                 {/* {this.state.showSearchedList? <Properties data={this.state.propertyData}/>: null} */}
                 {/* {this.state.propertyData} */}
                 {this.state.propertyData ? <Properties

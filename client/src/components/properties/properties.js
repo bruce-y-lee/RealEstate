@@ -1,6 +1,8 @@
 import React ,{ Component } from 'react';
 import _ from 'lodash';
 import Pagenation from './Pagenation';
+import AdvanceSearch from './AdvanceSearch';
+import PopularProperties from './PopularProperties';
 
 
 
@@ -104,14 +106,9 @@ class Properties extends Component {
             );
         });
     }
-    render(){
-        // console.log(this.props.data);
-        
-        return (
-            <section id="aa-properties">
-                <div className="container">
-                <div className="row">
-                    <div className="col-md-8">
+    propertyContent(){
+        return(
+            <div className="col-md-8">
                     <div className="aa-properties-content">
                     {/* <!-- start properties content head --> */}
                         <div className="aa-properties-content-head">              
@@ -153,10 +150,36 @@ class Properties extends Component {
                             />
                     </div>
                     </div>
-                </div>
-                </div>
-            </section>
+                    
         )
+    }
+    render(){
+        // console.log(this.props.data);
+        if(window.location.pathname ==='/'){
+            return (
+                <section id="aa-properties">
+                    <div className="container">
+                    <div className="row">
+                        {this.propertyContent()}
+                        {/* <AdvanceSearch/> */}
+                        <div className="col-md-4">
+                        <aside className="aa-properties-sidebar">
+                        <PopularProperties />
+                        </aside>
+                        </div>
+                        </div>
+    
+                    </div>
+                </section>
+            )    
+        }
+        return(
+            <div>
+                {this.propertyContent()}
+            </div>
+            
+        )
+        
 
     }
 }

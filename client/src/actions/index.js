@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {FETCH_USER, FETCH_PROPERTIES, FETCH_PROPERTIES_NEAR} from './types';
+import {FETCH_USER, FETCH_PROPERTIES, FETCH_PROPERTIES_NEAR, FETCH_PROPERTIES_POPULAR} from './types';
 
 
 // export const fetchUser = ()=>{
@@ -62,4 +62,10 @@ export const fetchPropertiesNear = (propertyId) => async dispatch => {
         const res = await axios.get(`/api/properties/near/${propertyId}`);
         console.log(res.data);
         dispatch({ type: FETCH_PROPERTIES_NEAR, payload: res.data})
+};
+export const fetchPropertiesPopular = () => async dispatch => {
+        console.log("fetch popular properties ");
+        const res = await axios.get('/api/propertiespopular');
+        console.log(res.data);
+        dispatch({ type: FETCH_PROPERTIES_POPULAR, payload: res.data})
 };
