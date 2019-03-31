@@ -1,30 +1,30 @@
 const passport = require('passport');
-// const jwt      = require('jsonwebtoken');
-// const bcrypt = require('bcrypt');
+
 
 
 
 
 module.exports = app => {
+    // google authentication
     app.get('/auth/google', passport.authenticate('google',{
         scope:['profile','email'] 
      })
     );
-
+    //google auth call back
     app.get('/auth/google/callback',passport.authenticate('google'),(req,res)=>{
-        // res.send(req.user);
+        
         res.redirect('/');
     });
 
-
+    //instagram authentication
     app.get('/auth/instagram', passport.authenticate('instagram'));
-
+    //instagram authentication callback
     app.get('/auth/instagram/callback', passport.authenticate('instagram', { failureRedirect: '/login' }), (req, res) => {
         // Successful authentication, redirect home.
-        // console.log("success");
+        
         res.redirect('/');
     });
-
+    //facebook authentication
     app.get('/auth/facebook', passport.authenticate('facebook'));
 
 // Facebook will redirect the user to this URL after approval.  Finish the
@@ -33,17 +33,18 @@ module.exports = app => {
 // authentication has failed.
     app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/',
                                                                            failureRedirect: '/login' }));
-
+    
     app.get('/api/logout',(req,res)=>{
-        // console.log("req",req);
+        
         req.logout();
-        // res.send(req.uesr);    
+        
         res.redirect('/');
     }); 
+    //current user info
     app.get('/api/current_user', (req, res) => {
-        // console.log("req",req);
+        
         res.send(req.user);
-        // res.send(req.session);
+        
 
     });
     

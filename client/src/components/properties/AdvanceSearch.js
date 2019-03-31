@@ -19,24 +19,16 @@ import PopularProperties from './PopularProperties';
 const Range = Slider.Range;
 
 
-const style = { width: 400, margin: 10 };
-const style3 = { width: 500, margin: 10 };
-const style2 = { width: 300, margin: 10 };
+const style = { width: 400, margin: 10 }; //style for big window
+// const style3 = { width: 500, margin: 10 }; 
+const style2 = { width: 300, margin: 10 };//style for side search
 
 
 
 
-// import { fetchPropertiesSearched } from '../../actions';
-// var selectionField = [{
-//     label: "Location", list :  ["Location","Vancouver", "Burnaby", "Surrey", "North Vancouver", "West Vancouver", 
-//             "Richmond", "Langley", "Coquitlam", "Delta"]},
-//     {label: "PropertyType", list: ["Property Type","apartment", "condominium", "house"]},
-//     {label: "Bedrooms", list: ["Bedrooms Min",1,2,3,4,5,6,7]},
-//     {label: "Bathrooms", list: ["Bathrooms Min",1,2,3,4,5]}
-// ]
 
-// const wrapperStyle = { width: 700, margin: 50 };
 class AdvanceSearch extends Component {
+    //default search setting
     state = {
         showSearchedList: false,
         
@@ -46,7 +38,7 @@ class AdvanceSearch extends Component {
     }
 
     handleChange = (e) => {
-        console.log(this.state);
+        // console.log(this.state);
         this.setState({
             [e.target.name]:e.target.value
         })
@@ -59,41 +51,46 @@ class AdvanceSearch extends Component {
         })
         // console.log("advance search select location");
     }
-
+    //sq value change
     handleOnChange = (value) => {
         this.setState({
           value1: value
         })
         // console.log(this.state.value)
       }
+
+    //price value change
     handleOnChange2 = (value) => {
     this.setState({
         value2: value
     })
     // console.log(this.state.value2)
     }
+
     numberWithCommas= (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     handleSubmit = async (e) => {
-        // let aa = document.getElementById("skip-value-lower").value;
+        
         e.preventDefault();
-        // console.log(aa);
+        
         
         const res = await axios.post('/api/properties',this.state);
-        // fetchPropertiesSearched(this.state);
-        console.log(res);
+        
         this.setState({
             propertyData: res.data,
             showSearchedList: true
         });
-        // console.log(this.state);
         
-        if(this.props.search)
-            this.props.search()
+        if(this.props.search){
+            this.props.search();
+            console.log("search!")
+        }
+            
+        
         
     }
-
+    //selection options
     optionGenerate = (list)=> {
         return _.map(list, (item) => {
             
@@ -106,6 +103,7 @@ class AdvanceSearch extends Component {
             );
         });
     }
+    // selections
     selectGenerate ({label, list}) {
         
             return (
@@ -120,9 +118,7 @@ class AdvanceSearch extends Component {
     
 }
     searchRender(pathName) {
-        // let { value } = this.state
-        // let value={ start: 20, end: 80 }
-        // pathName=='/'? "aa":"bb";
+        
         return(
             <div>
               {pathName==='/'? <section id="aa-advance-search">
@@ -169,8 +165,7 @@ class AdvanceSearch extends Component {
                               <span id="skip-value-lower" className="example-val"  ref="areaMin" >{this.state.value1[0]}</span>
                               <span>TO</span>
                               <span id="skip-value-upper" className="example-val"  ref="areaMax" >{this.state.value1[1]}</span>
-                              {/* <div id="aa-sqrfeet-range" className="noUi-target noUi-ltr noUi-horizontal noUi-background">
-                              </div>  */}
+                              
                               <div style={style}>
       
                                 <Range min={500} max={3000} allowCross={false} defaultValue={[1000, 2000]} onChange={this.handleOnChange} />
@@ -255,16 +250,13 @@ class AdvanceSearch extends Component {
         )
     }
     render() {
-        // console.log("Header props?");
-        // console.log(this.props.auth)
-        // console.log(this.state)
+        
         let {location} = window;
          console.log(location.pathname)
         return (
             <div>
                 {this.searchRender(location.pathname)}
-                {/* {this.state.showSearchedList? <Properties data={this.state.propertyData}/>: null} */}
-                {/* {this.state.propertyData} */}
+        
                 {this.state.propertyData ? <Properties
                                             data={this.state.propertyData}/>:null}
             </div>

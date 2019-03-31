@@ -49,9 +49,7 @@ passport.use(new GoogleStrategy({
            // }
         
     
-    // console.log('access toten: ',accessToken);
-    // console.log('refresh token: ',refreshToken);
-    // console.log('profile: ', profile);
+    
   })
 );
 passport.use(new InstagramStrategy({
@@ -68,7 +66,7 @@ passport.use(new InstagramStrategy({
     }//else {
         // we don't have a record, make a new record
         const user = await new User({ name: profile.name, instagramId: profile.id, password: "instargram"}).save()
-        // .then(user=>done(null,user));
+        
         done(null,user);
    // }
 
@@ -107,9 +105,7 @@ passport.use('register',
     },
     async (req, email, password, done) => {
         try{
-            // console.log(req.body);
-            // console.log("passport use register");
-            // console.log("email :", email);
+            //find by user by email
             const existingUser =  await User.findOne({email: email});
 
             if(existingUser){
@@ -118,10 +114,9 @@ passport.use('register',
             }
             else {
                 const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
-                // console.log("password: ",password);
-                // console.log("hashedPassword",hashedPassword);
+                
                 const user = await new User({name:req.body.name, email:email, password: hashedPassword}).save();
-                console.log("user created in passport");
+                // console.log("user created in passport");
                 return done(null, user);
             }
         } catch(err) {
@@ -150,11 +145,11 @@ passport.use(
              const matchPassword = await bcrypt.compare(password, existingUser.password);
              
              if(matchPassword){
-                 console.log('user found & authenticated');
+                //  console.log('user found & authenticated');
                  return done(null, existingUser);
              }
              else{
-                 console.log('email or password do not match');
+                //  console.log('email or password do not match');
                  return done(null, false, {message: 'password do not match'});
 
              }
@@ -180,14 +175,14 @@ passport.use(
     new JWTStrategy(opts, 
         async (jwt_payload, done) => {
           try {
-              console.log("passport use jwt");
+            //   console.log("passport use jwt");
               const existingUser = await User.findOne({ email: jwt_payload.id });
               if(existingUser){
-                  console.log('user found db in passport');
+                //   console.log('user found db in passport');
                   done(null, existingUser);
               }
               else{
-                  console.log('user not found in db');
+                //   console.log('user not found in db');
                   done(null, false)
               }
           }

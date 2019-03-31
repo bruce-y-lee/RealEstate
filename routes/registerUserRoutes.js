@@ -8,13 +8,11 @@ const User = mongoose.model('users');
 
 
 module.exports = app => {
+    //register user with jwt
     app.post('/jwt/registerUser',(req, res, next)=>{
-        console.log("post /jwt/registerUser");
-        console.log(req.body);
-        // res.send(req.body);
+
         passport.authenticate('register', async (err, user, info) => {
-            console.log("post registerUser");
-            console.log(user);
+
             if(err){
                 console.log(err);
             }
@@ -27,16 +25,8 @@ module.exports = app => {
                     res.redirect('/');
                 })
                 
-                // res.status(200).send(user);
-                // req.logIn(user, err => {
-                //     const data = {
-                //         email: req.body.email
-                //     };
-                //     const user = User.findOne({email:data.email})
-                //     console.log('user created');
-                //     res.status(200).send(user);
 
-                // });
+
             }
         })(req, res, next);
     });
@@ -56,12 +46,7 @@ module.exports = app => {
                     const token = jwt.sign({id: foundUser.email}, jwtSecret);
 
                     res.redirect('/');
-                    // res.send(req.user);
-                    // res.status(200).send({
-                    //     auth: true,
-                    //     token: token,
-                    //     message: 'user found & logged in',
-                    // });
+                    
                 })
             }
         })(req, res, next);

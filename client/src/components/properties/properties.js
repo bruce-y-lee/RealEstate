@@ -3,10 +3,15 @@ import _ from 'lodash';
 import Pagenation from './Pagenation';
 import AdvanceSearch from './AdvanceSearch';
 import PopularProperties from './PopularProperties';
+import axios from 'axios';
 
 
 
-
+const pStyle = {
+    backgroundColor: '#b57de0',
+    // margin: '0px 50px',
+    float: 'right'
+  };
 class Properties extends Component {
     state={
         // pageNumber: Math.ceil(this.props.data.length/10)
@@ -17,39 +22,31 @@ class Properties extends Component {
         if(this.props.detail){
             e.preventDefault();
         // this.props.detail(e.target);
-        console.log(e.target.getAttribute('value'));
+        // console.log(e.target.getAttribute('value'));
         this.props.detail(e.target.getAttribute('value'));
         }
         
     }
+    handleRemove= async (e)=>{
+        e.preventDefault();
+
+        let result = await axios.patch('/api/mylist',{propertyId:e.target.getAttribute('value'), userId:this.props.auth._id})
+        console.log(result);
+        console.log("remove")
+        window.location.reload();
+        // console.log(this.props.auth);
+        // console.log(e.target.getAttribute('value'));
+
+
+    }
     handlePage(number){
-        console.log(number);
+        // console.log(number);
         this.setState({
             selectedPage: number
         })
     }
-    // componentDidUpdate(){
-        // console.log(this.props.data.length);
-        // console.log(Math.ceil(11/10));
-        // this.setState({
-        //     pageNumber: Math.ceil(this.props.data.length/10)
-        // })
-        // if(this.props.data.length > 10){
-        //     for(let i =1; i<this.props.data.length;i=i+10){
-        //         if(i>10){
-        //             this.setState({
-        //                 pageNumber: [...this.state.pageNumber, parseInt(i/10)]
-        //             })
-        //         }
-        //         else{
-        //             this.setState({
-        //             pageNumber: [...this.state.pageNumber, i]
-        //             })
-        //         }      
-        //     }
-
-            
-        // }
+    // handleSearch = () => {
+    //     this.props.search();
     // }
     renderSaleTag = (type)=>{
         if(type==='for-rent'){
@@ -97,7 +94,9 @@ class Properties extends Component {
                         <span className="aa-price">
                           ${property.price}
                         </span>
+                        
                         <a className="aa-secondary-btn" href={`/properties/${property._id}` } value={property._id} onClick={this.handleDetail}>View Details</a>
+                        {window.location.pathname.match(/^\/mylist/) && this.props.auth? <button className="aa-secondary-btn" value={property._id}style={pStyle} onClick={this.handleRemove}> Remove from My List</button>: null }
                       </div>
                     </div>
                   </article>
@@ -174,9 +173,13 @@ class Properties extends Component {
             )    
         }
         return(
+            
             <div>
-                {this.propertyContent()}
-            </div>
+                        {this.propertyContent()}
+            </div>        
+            
+                        
+            
             
         )
         

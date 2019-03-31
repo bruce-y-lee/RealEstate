@@ -12,13 +12,13 @@ module.exports = server => {
 
     var io = socketIO(server);
     var users = new ChatUsers();
-
+    //conect
     io.on('connection', (socket)=>{
-    console.log('New user connected');
+    // console.log('New user connected');
 
     io.emit('updateUserList', users.getUserList());
-    console.log(users.getUserList())
-
+    // console.log(users.getUserList())
+        
     socket.on('join', (params,callback)=>{
         if(!isRealString(params.name) || !isRealString(params.room)){
             callback('Name and room name are required!')
@@ -30,18 +30,12 @@ module.exports = server => {
 
         users.removeUser(socket.id);
         users.addUser(socket.id, params.name, params.room);
-        // console.log(req.user)
-       
-         //io.emit -> everyone io.to('room2')
-      //socket.broadcast everyone except itself -> socket.broadcast.to('room2')
-      // socket.emit -> socket.emit('room2')
-
-      //io.emit send message to evverybody connected
-//socket.emit from Admin text welcome to the chat ap
+        
+    //socket.emit from Admin text welcome to the chat ap
     socket.emit('newMessage', generateMessage('Admin',`Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`));
-    // console.log("type generate message ", typeof (generateMessage('Admin',`Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`,params.room)))
+    //store message to chatLog.txt
     chatStream.write(JSON.stringify(generateMessage('Admin',`Hello ${params.name}! Welcome to the chat. Agent will join the chat soon.`,params.room))+"\n",'utf-8');
-    //socket.broadcast.emit from Admin text New user joined except the new user
+    
     socket.broadcast.to(params.room).emit('newMessage',generateMessage('Admin', `${params.name} has joined`,params.room));
     chatStream.write(JSON.stringify(generateMessage('Admin',`${params.name} has joined`,params.room))+"\n",'utf-8');
 
@@ -60,11 +54,7 @@ module.exports = server => {
           chatStream.write(JSON.stringify(generateMessage(user.name,message.text,user.room))+"\n",'utf-8');
         }
         //send message all but me
-        // socket.broadcast.emit('newMessage',{
-        //   from: message.from,
-        //   text: message.text,
-        //   createdAt: new Date().getTime()
-        // });
+        
       })
   
 

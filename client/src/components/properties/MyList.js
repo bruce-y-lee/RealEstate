@@ -4,18 +4,29 @@ import { fetchMyList } from '../../actions';
 // import PropertyDetail from './PropertyDetail';
 import Properties from './properties';
 import PropertyDetail from './PropertyDetail';
+import AdvanceSearch from './AdvanceSearch';
 
 class MyList extends Component {
     state={
-        renderProperties: true,
-        rednerPropertyDetail: false
+        showList: true,
+        showDetail: false,
+        
     }
 
     handleDetail = (propertyId) => {
         this.setState({
-            renderProperties: false,
-            rednerPropertyDetail: true,
+            showList: true,
+            showDetail: false,
+            
             propertyId
+        })
+    }
+    handleSearch = () => {
+        this.setState({
+            showList: false,
+            showDetail: false
+            
+            
         })
     }
     handleDelete = () => {
@@ -46,35 +57,67 @@ class MyList extends Component {
         )
     }
     
+    propertyBody() {
+        console.log(this.props.properties)
+        return (
+            <section id="aa-properties">
+                    <div className="container">
+                    <div className="row">
+                        <AdvanceSearch search = {this.handleSearch.bind(this)}/>
+                        {this.state.showList? <Properties
+                                            data={this.props.properties}
+                                            auth={this.props.auth}/>: null}
+                         
+                    </div>
+                    </div>
+                    
+            </section>
+        )
 
+    }
     render () {
-        // console.log(this.props.properties);
-        // console.log(this.state);
         return (
             <div>
-                
-                {this.state.renderProperties?
-                    <div>
-                        {this.propertyAllHeader()}
-                    <Properties
-                        data={this.props.properties}
-                        detail = {this.handleDetail.bind(this)}
-                        />
-                    </div>
-                    : null
-                    }
-                {this.state.rednerPropertyDetail?
-                    <PropertyDetail
-                        propertyId = {this.state.propertyId}
-                        deleteProperty={this.handleDelete}
-                        />
-                        : null
-
-                }    
+                {this.propertyAllHeader()}
+                {this.propertyBody()}
             </div>
             
         )
     }
+    // render () {
+    //     // console.log(this.props.properties);
+    //     // console.log(this.state);
+    //     return (
+    //         <div>
+                
+    //             {this.state.renderProperties?
+    //                 <div>
+    //                     {this.propertyAllHeader()}
+    //                 {/* <AdvanceSearch /> */}
+    //                 <Properties
+    //                     data={this.props.properties}
+    //                     detail = {this.handleDetail.bind(this)}
+    //                     myListToSearch = {this.handleSearch.bind(this)}
+    //                     />
+    //                 </div>
+    //                 : null
+    //                 }
+    //             {this.state.rednerPropertyDetail?
+    //             <div>
+
+    //                  {/* <AdvanceSearch /> */}
+    //                 <PropertyDetail
+    //                     propertyId = {this.state.propertyId}
+    //                     deleteProperty={this.handleDelete}
+    //                     />
+    //                 </div>
+    //                     : null
+
+    //             }    
+    //         </div>
+            
+    //     )
+    // }
 }
 
 // function mapStateToProps(state) {

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchPropertiesLatest } from '../actions';
 
-// import Properties from './properties';
-import _ from 'lodash';
+
+
+
 import axios from 'axios';
 
-// var testData ;
+//main slide with latest properties
 class TopSlider extends Component {
-    // state={properties:this.props.properties}
+
     
     componentDidMount = async ()=> {
         var res = await axios.get('/api/properties/latest');
@@ -16,76 +15,16 @@ class TopSlider extends Component {
         this.setState({
             properties:res.data
         })
-        console.log(res);
-        console.log(this.state.properties[0].address)
+
         
     }
     
-    renderProperties = (fetchedData) => {
-        let counter=0;
-        // console.log(this.state[0].address);
-        
-        // if(this.state.properties && this.state.properties.addres !== undefined){
-        //     _.map(this.state.properties,(property)=>{
-        //         console.log(property);
-        //         testData.push(property);
-                
-        //     })
-        // } 
-        
-        // console.log(testData)
-        console.log(fetchedData);
-        return _.map(fetchedData, (property) => {
-            counter++;
-            // testData.push(property);
-            return (
-                <div className="aa-top-slider-single"  key={`topSlider ${counter}`} >
-                    <img src={`img/slider/${counter}.jpg`} alt="slider" />
-                    
-                    <div className="aa-top-slider-content">
-                        <span className="aa-top-slider-catg">{property.propertyType}</span>
-                        <h2 className="aa-top-slider-title">{property.sq} Square Feet</h2>
-                        <p className="aa-top-slider-location"><i className="fa fa-map-marker"></i>{property.address.streetAddress}, {property.address.city}</p>
-                        <span className="aa-top-slider-off">{counter%3+1}0% OFF</span>
-                        <p className="aa-top-slider-price">${property.price}</p>
-                        <a href={`/properties/${property._id}`} className="aa-top-slider-btn">Read More <span className="fa fa-angle-double-right"></span></a>
-                    </div>
-                    
-                  </div>
-                
-        )
-        });
-
-    }
-    // testData = ()=> {
-    //     // this.props.properties.map(property => {
-    //     //     console.log(property);
-    //     //     testData.push(property)
-    //     // })
-    //     if(this.props.properties && this.props.properties.addres !== undefined){
-    //         _.map(this.props.properties,(property)=>{
-    //             console.log(property);
-    //             testData.push(property);
-                
-    //         })
-    //     } 
-        
-    //     console.log(testData)
-    // }
+    
+    
     
 
     render () {
-        // this.renderProperties(this.props.properties);
-        // var data = this.props.properties;
-        // data = JSON.stringify(data[0]);
-        // console.log(typeof data);
-        // data = JSON.parse(data);
-        // console.log(typeof data);
-        // this.testData();
-        // {this.state? this.state.properties[0].propertyType:null}
-        // {this.state? this.state.properties[0].sq:null}
-        // if(this.state){
-        // }
+        
         return (
             <section id="aa-slider">
                 <div className="aa-slider-area"> 
@@ -204,19 +143,7 @@ class TopSlider extends Component {
     }
 }
 
-// function mapStateToProps(state) {
-//     return {surveys: state.surveys}; // from reducer
-// }
 
-// function mapStateToProps({properties}) {
-//     if(properties && properties[0]){
-//         testData = {properties}
-//         console.log(testData);
-//     }
-    
-
-//     return {properties}; // from reducer
-// }
 
 export default TopSlider;
 // export default connect(mapStateToProps, { fetchPropertiesLatest })(TopSlider);

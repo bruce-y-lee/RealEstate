@@ -61,7 +61,7 @@ if(process.env.NODE_ENV === 'production') {
 
 
 
-
+//create http server for socketio
 var server = http.createServer(app);
 
 require('./services/socketio')(server);

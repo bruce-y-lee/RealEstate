@@ -10,10 +10,7 @@ class ChatUsers {
     }
   
     removeUser(id){
-      // var users = this.users.filter((user)=>user.id !== id);
-      // console.log("users :",users);
-      // this.users = users;
-      // return users;
+      
   
       var user = this.getUser(id);
       if(user) {
@@ -26,7 +23,7 @@ class ChatUsers {
       return idUser;
     }
     getUserList(){
-      // var users = this.users.filter((user)=>user.room === room);
+      
       var namesArray = this.users.map((user)=>{
           return user.name
       })

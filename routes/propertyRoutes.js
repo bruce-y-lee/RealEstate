@@ -1,8 +1,5 @@
 
 const mongoose = require('mongoose');
-
-
-
 const Property = mongoose.model('properties');
 
 module.exports = app => {
@@ -13,16 +10,17 @@ module.exports = app => {
 
         res.send(properties);
     });
+
     app.get('/api/properties/latest', async (req, res) => {
-        // req.user
-        console.log(req.body);
+
         const properties = await Property.find({saleType:{$ne:"sold-out"}}).sort({_id:1}).limit(6);
-// console.log(properties);
+
         res.send(properties);
     });
+    //search properties with condition
     app.post('/api/properties', async (req, res) => {
         // req.user
-        console.log(req.body);
+        // console.log(req.body);
         let properties;
         
         try{
@@ -62,15 +60,13 @@ module.exports = app => {
         // console.log(properties);
         res.send(properties);
     });
-
+    //property detail route
     app.get('/api/properties/:propertyIdorQuery', async (req, res) => {
-        // req.user
-        // console.log("propertyRoutes get /api/properties/:propertyId");
-        // console.log(req.params.propertyId);
+        
         let property;
         if (req.params.propertyIdorQuery.match(/^[0-9a-fA-F]{24}$/)) {
             // it's an ObjectID   
-            console.log("it is id")
+            // console.log("it is id")
             try{
                 property = await Property.findById(req.params.propertyIdorQuery);
     
@@ -78,17 +74,15 @@ module.exports = app => {
             }
             catch(e){
                 console.log(e.message);
-                // res.send(e.message);
-                // res.status(404).redirect('/');
+        
                 res.redirect('/');
             } 
         } else {
-
-            // it is not id 
-            console.log("it is not id");
+            //find by city name
+            
             try{
                 property = await Property.find({"address.city": req.params.propertyIdorQuery}).limit(4);
-                console.log(property);
+                // console.log(property);
                 res.send(property);
             }
             catch(e){
@@ -96,22 +90,21 @@ module.exports = app => {
                 res.redirect('/');
 
             }
-            console.log(req.params.propertyIdorQuery);
+            
         }
         
         
         // console.log(property);
         
     });
+    //find property's near properties( same city)
     app.get('/api/properties/near/:propertyId', async (req, res) => {
-        // req.user
-        // console.log("propertyRoutes get /api/properties/:propertyId");
-        // console.log(req.params.propertyId);
+        
         let property;
         let propertyNear;
         if (req.params.propertyId.match(/^[0-9a-fA-F]{24}$/)) {
             // it's an ObjectID   
-            console.log("it is id")
+        
             try{
                 property = await Property.findById(req.params.propertyId);
                 propertyNear = await Property.find({"address.city":property.address.city}).limit(4);
@@ -119,43 +112,35 @@ module.exports = app => {
             }
             catch(e){
                 console.log(e.message);
-                // res.send(e.message);
-                // res.status(404).redirect('/');
+                
                 res.redirect('/');
             } 
         } 
         
         
         
-        // console.log(property);
+        
         
     });
+    //popular properties route
     app.get('/api/propertiespopular', async (req, res) => {
-        // req.user
-        // console.log("propertyRoutes get /api/properties/:propertyId");
-        // console.log(req.params.propertyId);
+        
         
         let propertyPopular;
-        // if (req.params.propertyId.match(/^[0-9a-fA-F]{24}$/)) {
-        //     // it's an ObjectID   
-            console.log("popular property")
+        
+            // console.log("popular property")
             try{
-                // property = await Property.findById(req.params.propertyId);
+                //find by property's user array's length
                 propertyPopular = await Property.find({ $where: "this._user.length > 0" } ).sort({price:1}).limit(4);
-                // console.log(propertyPopular);
+                
                 res.send(propertyPopular);
             }
             catch(e){
                 console.log(e.message);
-                // res.send(e.message);
-                // res.status(404).redirect('/');
+                
                 res.redirect('/');
             } 
-        // } 
         
-        
-        
-        // console.log(property);
         
     });
 

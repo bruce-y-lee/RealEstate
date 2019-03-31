@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchProperties } from '../../actions';
-
+import AdvanceSearch from './AdvanceSearch';
 import Properties from './properties';
 
 class PropertyList extends Component {
+    state={
+        
+        showListPage: true
+    }
     componentDidMount() {
         this.props.fetchProperties();
+    }
+    listToSearch(){
+        // console.log("detail to Search");
+        this.setState({
+            
+            showListPage: false
+        })
     }
     propertyAllHeader(){
         return (
@@ -28,14 +39,27 @@ class PropertyList extends Component {
         )
     }
     
+    propertyBody() {
+        return (
+            <section id="aa-properties">
+                    <div className="container">
+                    <div className="row">
+                        <AdvanceSearch search = {this.listToSearch.bind(this)}/>
+                        {this.state.showListPage? <Properties
+                                            data={this.props.properties}/>: null}
+                         
+                    </div>
+                    </div>
+                    
+            </section>
+        )
 
+    }
     render () {
         return (
             <div>
                 {this.propertyAllHeader()}
-                <Properties
-                    data={this.props.properties}
-                    />
+                {this.propertyBody()}
             </div>
             
         )

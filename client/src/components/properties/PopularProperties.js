@@ -19,7 +19,7 @@ class PopularProperties extends Component {
         return _.map(fetchedData, (property) => {
             // const rand = parseInt(min + Math.random() * (max - min));
             return (
-                <div className="media">
+                <div className="media" key={`popularProperties ${property._id}`}>
                 <div className="media-left">
                   <a href={`/properties/${property._id}`}>
                     <img className="media-object" src={`img/item/${property.images[0]}`} alt="img"/>
