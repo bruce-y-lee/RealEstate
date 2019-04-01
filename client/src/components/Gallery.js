@@ -45,7 +45,7 @@ class Gallery extends Component {
     renderImage(){
         return _.map(imgData, image=>{
             return(
-                <div className={`aa-single-gallery mix ${image.title}`} style={istyle}key={`gallery iamge ${image.img}`}>                  
+                <div className={`aa-single-gallery mix ${image.title}`} style={istyle} key={`gallery iamge ${image.img}`}>                  
                       <div className="aa-single-gallery-item">
                         <div className="aa-single-gallery-img">
                           <a href="#"><img src={`img/gallery/small/${image.img}`} alt="img"/></a>

@@ -35,8 +35,8 @@ class HeaderNav extends Component {
                     <li className={propertiesClass}>
                     <a className="dropdown-toggle" data-toggle="dropdown" href="properties.html">PROPERTIES <span className="caret"></span></a>
                     <ul className="dropdown-menu" role="menu">                
-                        <li><a href="properties">PROPERTIES</a></li>
-                        <li><a href="properties">PROPERTIES DETAIL</a></li>                                            
+                        <li><a href="/properties">PROPERTIES</a></li>
+                        <li><a href="/properties">PROPERTIES DETAIL</a></li>                                            
                     </ul>
                     </li>
                     <li className={galleryClass}><a href="gallery.html">GALLERY</a></li>                                         
