@@ -12,6 +12,7 @@ import PropertyDetail from './properties/PropertyDetail';
 import AdvanceSearch from './properties/AdvanceSearch';
 import MyList from './properties/MyList';
 import Contact from './Contact';
+import Gallery from './Gallery';
 import aboutUs from './aboutUs';
 import LatestProperties from './properties/LatestProperties';
 import ourService from './ourService';
@@ -41,6 +42,7 @@ class App extends Component {
           <Route path="/mylist/:userId" component={MyList}/>
           {/* <Route exact path="/properties/searched" component={PropertyListSearched}/> */}
           <Route exact path='/properties/:propertyId' component={PropertyDetail}/>
+          <Route exact path='/gallery' component={Gallery} />  
           <Route exact path='/contact' component={Contact} />  
           <Route exact path='/' component={aboutUs}/>
           <Route exact path='/' component={LatestProperties}/>

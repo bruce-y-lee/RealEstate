@@ -9,6 +9,7 @@ class HeaderNav extends Component {
         const homeClass = location.pathname === "/" ? "active" : "";
         const propertiesClass= location.pathname.match(/^\/properties/) ? "dropdown active" : "dropdown";
         const contactClass=location.pathname.match(/^\/contact/) ? "active" : "";
+        const galleryClass=location.pathname.match(/^\/gallery/) ? "active" : "";
 
         return (
             <section id="aa-menu-area">
@@ -38,7 +39,7 @@ class HeaderNav extends Component {
                         <li><a href="properties">PROPERTIES DETAIL</a></li>                                            
                     </ul>
                     </li>
-                    <li><a href="gallery.html">GALLERY</a></li>                                         
+                    <li className={galleryClass}><a href="gallery.html">GALLERY</a></li>                                         
                     <li className="dropdown">
                     <a className="dropdown-toggle" data-toggle="dropdown" href="blog-archive.html">BLOG <span className="caret"></span></a>
                     <ul className="dropdown-menu" role="menu">                
