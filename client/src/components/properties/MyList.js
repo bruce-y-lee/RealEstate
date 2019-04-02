@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchMyList } from '../../actions';
-// import PropertyDetail from './PropertyDetail';
+
 import Properties from './properties';
-import PropertyDetail from './PropertyDetail';
+
 import AdvanceSearch from './AdvanceSearch';
 
 class MyList extends Component {
@@ -84,40 +84,7 @@ class MyList extends Component {
             
         )
     }
-    // render () {
-    //     // console.log(this.props.properties);
-    //     // console.log(this.state);
-    //     return (
-    //         <div>
-                
-    //             {this.state.renderProperties?
-    //                 <div>
-    //                     {this.propertyAllHeader()}
-    //                 {/* <AdvanceSearch /> */}
-    //                 <Properties
-    //                     data={this.props.properties}
-    //                     detail = {this.handleDetail.bind(this)}
-    //                     myListToSearch = {this.handleSearch.bind(this)}
-    //                     />
-    //                 </div>
-    //                 : null
-    //                 }
-    //             {this.state.rednerPropertyDetail?
-    //             <div>
-
-    //                  {/* <AdvanceSearch /> */}
-    //                 <PropertyDetail
-    //                     propertyId = {this.state.propertyId}
-    //                     deleteProperty={this.handleDelete}
-    //                     />
-    //                 </div>
-    //                     : null
-
-    //             }    
-    //         </div>
-            
-    //     )
-    // }
+   
 }
 
 // function mapStateToProps(state) {

@@ -1,7 +1,7 @@
 import React ,{ Component } from 'react';
 import _ from 'lodash';
 import Pagenation from './Pagenation';
-import AdvanceSearch from './AdvanceSearch';
+
 import PopularProperties from './PopularProperties';
 import axios from 'axios';
 

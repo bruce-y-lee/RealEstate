@@ -48,166 +48,18 @@ class Gallery extends Component {
                 <div className={`aa-single-gallery mix ${image.title}`} style={istyle} key={`gallery iamge ${image.img}`}>                  
                       <div className="aa-single-gallery-item">
                         <div className="aa-single-gallery-img">
-                          <a href="#"><img src={`img/gallery/small/${image.img}`} alt="img"/></a>
+                          <a href="_blank"><img src={`img/gallery/small/${image.img}`} alt="img"/></a>
                         </div>
                         <div className="aa-single-gallery-info">
                           <a className="fancybox" data-fancybox-group="gallery" href={`img/gallery/big/${image.img}`}><span className="fa fa-eye"></span></a>
-                          <a className="aa-link" href="#"><span className="fa fa-link"></span></a>
+                          <a className="aa-link" href="_blank"><span className="fa fa-link"></span></a>
                         </div>                  
                       </div>
                 </div>
             )
         })
 
-        // return(
-        //     <div><img src="img/gallery/small/1.jpg" alt="img"/>
-        //         <div class="aa-single-gallery mix apartment">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/1.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/1.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>                  
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix garage">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/2.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/2.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>                  
-
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix livingroom">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/3.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/3.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix bedroom">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/4.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/4.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix apartment">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/5.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/5.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix livingroom">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/6.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/6.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix apartment">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/7.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/7.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>                  
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix garage">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/8.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/8.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>                  
-
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix livingroom">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/9.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/9.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix bedroom">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/10.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/10.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix kitchen">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/11.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/11.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>
-        //         </div>
-        //     </div>
-        //     {/* <!-- start single gallery image --> */}
-        //     <div class="aa-single-gallery mix livingroom">                  
-        //         <div class="aa-single-gallery-item">
-        //         <div class="aa-single-gallery-img">
-        //             <a href="#"><img src="img/gallery/small/12.jpg" alt="img"/></a>
-        //         </div>
-        //         <div class="aa-single-gallery-info">
-        //             <a class="fancybox" data-fancybox-group="gallery" href="img/gallery/big/12.jpg"><span class="fa fa-eye"></span></a>
-        //             <a class="aa-link" href="#"><span class="fa fa-link"></span></a>
-        //         </div>
-        //         </div>
-        //     </div>
-        // </div>
-        // )
+       
         
 
     }
