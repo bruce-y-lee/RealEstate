@@ -13,25 +13,27 @@ class Register extends Component{
             [e.target.name]: e.target.value
         })
     }
+    
 
     registerUser= async ()=> {
         // console.log(this.state);
-        console.log("clicked submit");
-        // this.setState({
-        //     name: this.refs.name.value,
-        //     email:this.refs.email.value,
-        //     password: this.refs.password.value,
-        //     confirmPassword: this.refs.confirmPassword.value
-        // })
+        // console.log("clicked submit");
+        
 
-        console.log(this.state);
+        // console.log(this.state);
 
         if(this.state.password === this.state.confirmPassword){
-            console.log("axios post jwt registeruser")
+            // console.log("axios post jwt registeruser")
             const res = await axios.post('/jwt/registerUser',{name:this.state.name, email: this.state.email, password: this.state.password });
             // return axios.post('/jwt/registerUser',{name:this.state.name, email: this.state.email, password: this.state.password });
-            console.log(res);
-            window.location= '/';
+            console.log(res.data);
+            if(res.data == "exists")
+                alert("User existed alredy!")
+            else{
+                alert("Thank you for joining Us!")
+                window.location= '/';
+            }
+            
         }
         else{
             alert("Password has to match with confirm password");
@@ -76,18 +78,18 @@ class Register extends Component{
                         <input type="password" name="confirmPassword" onChange={e => this.handleChange(e)}/> 
                         </div>
                         <div className="aa-single-submit">
-                        <input type="noSubmit" onClick={this.registerUser.bind(this)} value="Create Account" name="submit"/>                    
+                        <input type="noSubmit" onClick={this.registerUser.bind(this)} value="Create Account" name="submit" onChange={e=> e.preventDefault()}/>                    
                         </div>
 
                         </form>
                         <div className="aa-single-submit">
-                        <input type="submit" value="Sign up with Google" name="submit"/>                    
+                        <a href="/auth/google"><input type="submit" value="Sign up with Google" onChange={e=> e.preventDefault()}/></a>                   
                         </div>
                         <div className="aa-single-submit">
-                        <input type="submit" value="Sign up with Facebook" name="submit"/>                    
+                        <a href="/auth/facebook"><input type="submit" value="Sign up with Facebook" onChange={e=> e.preventDefault()} /></a>                    
                         </div>
                         <div className="aa-single-submit">
-                        <input type="submit" value="Sign up with Instagram" name="submit"/>                    
+                        <a href="/auth/instagram"><input type="submit" value="Sign up with Instagram"  onChange={e=> e.preventDefault()}/></a>                    
                         </div>
                         
                     

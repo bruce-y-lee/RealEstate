@@ -110,13 +110,14 @@ passport.use('register',
 
             if(existingUser){
                 console.log('email already exist!');
-                return done(null, false, {message: 'email already exists'});
+                return done(null, false, {message: 'exists'});
             }
             else {
                 const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
                 
                 const user = await new User({name:req.body.name, email:email, password: hashedPassword}).save();
                 // console.log("user created in passport");
+                // console.log(user);
                 return done(null, user);
             }
         } catch(err) {
