@@ -1,4 +1,4 @@
-var {sendEmail} = require('../utils/sendEMail');
+var {sendEmail} = require('../utils/sendEmail');
 
 
 module.exports =  app => {
