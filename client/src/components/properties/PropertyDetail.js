@@ -199,7 +199,7 @@ class PropertyDetail extends Component {
                     <h4>Property Video</h4>
                     <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" title="propertyVideo"frameBorder="0" allowFullScreen></iframe>
                     <h4>Property Map</h4>
-                    <iframe src="https://www.google.com/maps/embed/v1/place?q=40.7127837,-74.0059413&key=AIzaSyAf_FXuOWdjTUcby3nfonQwFZUy5Wcrqe8" width="100%" height="450" title="propertyMap" frameBorder="0" style={{border: "0"}} allowFullScreen></iframe>
+                    <iframe src={`https://www.google.com/maps/embed/v1/place?q=${this.props.properties.address && this.props.properties.address.city ? this.props.properties.address.city: null},${this.props.properties.address && this.props.properties.address.country ? this.props.properties.address.country: null}&key=AIzaSyAf_FXuOWdjTUcby3nfonQwFZUy5Wcrqe8`} width="100%" height="450" title="propertyMap" frameBorder="0" style={{border: "0"}} allowFullScreen></iframe>
                     </div>
                     {/* <!-- Properties social share --> */}
                     <div className="aa-properties-social">
