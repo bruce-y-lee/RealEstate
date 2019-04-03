@@ -4,8 +4,7 @@ import { fetchProperty, fetchPropertiesNear} from '../../actions';
 
 import axios from 'axios';
 import AdvanceSearch from './AdvanceSearch';
-// import { fetchProperties } from '../../actions';
-// import {withRouter} from 'react-router-dom';
+
 const pStyle = {
     backgroundColor: '#b57de0',
     margin: '0px 50px'
@@ -18,32 +17,27 @@ class PropertyDetail extends Component {
     
     componentDidMount() {
         if(this.props.match){
-            console.log("this.props.match")
-
+            // console.log("this.props.match") // component loaded by react router
+            //get property info
             this.props.fetchProperty(this.props.match.params.propertyId);
-
+            //get property's near properties
             this.props.fetchPropertiesNear(this.props.match.params.propertyId);
             
         }
         else{
-            console.log("no this.props.match")
+            // console.log("no this.props.match")
             
             this.props.fetchProperty(this.props.propertyId);
             this.props.fetchPropertiesNear(this.props.propertyId);
             
 
         }
-        // this.props.fetchUser();
-        // console.log("PropertyDetails");
-        // console.log(this.props.match.params.propertyId);
-        // console.log(this.props);
-        
-            
+       
 
     }
     
     propertyHeader(){
-        console.log(this.props)
+        // console.log(this.props)
         return (
            
             <section id="aa-property-header">
@@ -64,12 +58,10 @@ class PropertyDetail extends Component {
         )
     }
     propertyFeatures() {
-        // console.log(this.props.properties.features);
-        // let features = this.props.properties.features.split(" ").trim();
+       
         let feat = this.props.properties.features;
-        // let city = this.props.properties.address;
-        // console.log("city", feat);
-        
+       
+       //list of feature of the property 
         if(typeof(feat) == 'string'){
             // console.log(features);
             let featu = feat.split(' ');
@@ -83,30 +75,30 @@ class PropertyDetail extends Component {
             // console.log(features);
 
         }
-        // let exst = "sdfsd sdkjhdsf skdjhfds skjhdf kjsdf ks dfkj g ";
-        
-        // return features.map(feature => {
-        //     return (
-        //         <li key={feature} >feature</li>
-        //     );
-        // });
+       
         
         
 
     }
     handleClick = async () => {
-        console.log(this.props.auth);
+        
+        //add property id to user
         const res = await axios.post('/api/mylist',{userId:this.props.auth._id, propertyId:this.props.match.params.propertyId });
-        console.log(res);
+        if(res){
+            if (window.confirm('Do you want to go to myList page?')) {
+                window.location = `/mylist/${this.props.auth._id}`;
+            } else {
+                // Do nothing!
+            }
+        }
+        
     }
     handleDelete= async ()=>{
         this.props.deleteProperty();
-        console.log(this.props.auth._id, this.props.propertyId)
+        //remove from property if of user's my list
         const res = await axios.patch('/api/mylist',{userId:this.props.auth._id, propertyId:this.props.propertyId });
-        console.log(res);
-        
-            // <Redirect to={`/mylist/:${this.props.auth._id}`}/>
-            window.location= `/mylist/${this.props.auth._id}`;
+            if(res)
+                window.location= `/mylist/${this.props.auth._id}`;
         
     }
     renderSaleTag = (type)=>{
@@ -119,7 +111,7 @@ class PropertyDetail extends Component {
         }
 
     }
-    renderNearProperties = (fetchedData) => {
+    renderNearProperties = (fetchedData) => { 
         return fetchedData.map(property => {
             return (
                 <div className="col-md-6" key={`nearProperty ${property._id}`}>
@@ -156,10 +148,7 @@ class PropertyDetail extends Component {
     }
 
     fetchNearProperties = async (city) => {
-        // if(this.props.properties){
-            // console.log(this.props.address.city);
-            // var nearProperties;
-            // if(this.props.properties.address && this.props.properties.address.city){
+        
                var result= await axios.get(`/api/properties/${city}`);
             //    if(nearProperties)
                return this.renderNearProperties(result.data)
@@ -188,7 +177,7 @@ class PropertyDetail extends Component {
                     {this.props.properties.address && this.props.properties.address.city ? this.props.properties.address.city: null}</h3>
                     <span className="aa-price">${this.props.properties.price}</span>
                     {this.props.deleteProperty? <button className="aa-secondary-btn" style={pStyle} onClick={this.handleDelete}> Remove from My List</button>: 
-                <button className="aa-secondary-btn" style={pStyle} onClick={this.handleClick}>Add myList</button>}
+                    <button className="aa-secondary-btn" style={pStyle} onClick={this.handleClick}>Add myList</button>}
                     
                     <p>{this.props.properties.body}</p>
                     <h4>Propery Features</h4>
@@ -220,8 +209,7 @@ class PropertyDetail extends Component {
                     </div>
                     <div className="aa-nearby-properties-area">
                         <div className="row">
-                                {/* {this.props.properties.address && this.props.properties.address.city ? this.fetchNearProperties(this.props.properties._id):null}*/}
-                                {/* {this.fetchNearProperties(this.props.propertiesNear)} */}
+                      
                                 {this.renderNearProperties(this.props.propertiesNear)}
                         </div>
                     </div>
@@ -234,7 +222,7 @@ class PropertyDetail extends Component {
         )
     }
     detailToSearch(){
-        console.log("detail to Search");
+        // console.log("detail to Search");
         this.setState({showDetailPage:false})
     }
     propertyBody() {
@@ -253,11 +241,7 @@ class PropertyDetail extends Component {
 
     }
     render () {
-        // console.log("propertyDetails render this.props")
-        if(this.props.properties)
-            // console.log(this.props.properties.address.city);
-
-
+        
         return (
                <div>
                     {this.propertyHeader()}
@@ -270,18 +254,13 @@ class PropertyDetail extends Component {
     }
 }
 
-// function mapStateToProps(state) {
-//     return {surveys: state.surveys}; // from reducer
-// }
 
-// function mapStateToProps({property, auth}) {
 function mapStateToProps({properties,auth,propertiesNear}) {
 
-    // console.log(state);
-    // if(properties.length >0)
+    
         return {properties, auth, propertiesNear}; // from reducer
     
-    // return state; // from reducer
+    
 }
 
 // export default connect(null, { fetchProperty })(PropertyDetail);

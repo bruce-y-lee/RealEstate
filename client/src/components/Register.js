@@ -27,7 +27,7 @@ class Register extends Component{
             const res = await axios.post('/jwt/registerUser',{name:this.state.name, email: this.state.email, password: this.state.password });
             // return axios.post('/jwt/registerUser',{name:this.state.name, email: this.state.email, password: this.state.password });
             console.log(res.data);
-            if(res.data == "exists")
+            if(res.data === "exists")
                 alert("User existed alredy!")
             else{
                 alert("Thank you for joining Us!")
