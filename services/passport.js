@@ -37,16 +37,18 @@ passport.use(new GoogleStrategy({
   },
     async (accessToken, refreshToken, profile, done) => {
     const existingUser = await User.findOne({googleId: profile.id})
-        // .then((existingUser)=>{
+        
             if(existingUser){
                 //we already have a record of a profile id
+                
                 done(null,existingUser);
-            }//else {
+            }else {
                 // we don't have a record, make a new record
+                
                 const user = await new User({ name: profile.displayName, googleId: profile.id, password: "googleId"}).save()
-                // .then(user=>done(null,user));
+                
                 done(null,user);
-           // }
+            }
         
     
     
@@ -60,15 +62,16 @@ passport.use(new InstagramStrategy({
   },
     async (accessToken, refreshToken, profile, done) => {
     const existingUser =  await User.findOne({ instagramId: profile.id })
+    console.log(profile);
     if(existingUser){
         //we already have a record of a profile id
         done(null,existingUser);
-    }//else {
+    }else {
         // we don't have a record, make a new record
-        const user = await new User({ name: profile.name, instagramId: profile.id, password: "instargram"}).save()
+        const user = await new User({ name: profile.displayName, instagramId: profile.id, password: "instargram"}).save()
         
         done(null,user);
-   // }
+    }
 
   })
 );
@@ -81,11 +84,12 @@ passport.use(new FacebookStrategy({
   },
     async (accessToken, refreshToken, profile, done) => {
     const existingUser = await User.findOne({facebookId: profile.id});
+    
 
     if(existingUser){
         done(null, existingUser);
     }else {
-        const user = await new User({ name:profile.name, facebookId : profile.id, password: "facebook"}).save()
+        const user = await new User({ name:profile.displayName, facebookId : profile.id, password: "facebook"}).save()
         done(null, user);
     }
     
@@ -97,7 +101,7 @@ const BCRYPT_SALT_ROUNDS = 10;
 
 passport.use('register',
     new LocalStrategy({
-        // usernameField: 'name',
+        
         usernameField: 'email',
         passwordField: 'password',
         session: false,
@@ -116,8 +120,7 @@ passport.use('register',
                 const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
                 
                 const user = await new User({name:req.body.name, email:email, password: hashedPassword}).save();
-                // console.log("user created in passport");
-                // console.log(user);
+                
                 return done(null, user);
             }
         } catch(err) {
@@ -144,13 +147,13 @@ passport.use(
             }
             else {
              const matchPassword = await bcrypt.compare(password, existingUser.password);
-             
+             //if password matches
              if(matchPassword){
-                //  console.log('user found & authenticated');
+                
                  return done(null, existingUser);
              }
              else{
-                //  console.log('email or password do not match');
+                
                  return done(null, false, {message: 'password do not match'});
 
              }
@@ -176,10 +179,10 @@ passport.use(
     new JWTStrategy(opts, 
         async (jwt_payload, done) => {
           try {
-            //   console.log("passport use jwt");
+            //user's email is id
               const existingUser = await User.findOne({ email: jwt_payload.id });
               if(existingUser){
-                //   console.log('user found db in passport');
+                
                   done(null, existingUser);
               }
               else{
