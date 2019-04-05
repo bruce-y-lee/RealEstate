@@ -510,6 +510,10 @@ const data = [{"propertyType":"condominium","address":{"country":"Canada","city"
 
 dataloading = async () => {
     // const proper = await new Property(data1).save();
+    var data2 = await data.map(item => {
+        item.price = parseInt(Math.ceil(item.price/10000)*10000);
+    });
+    // console.log(data2[0].price);
     data.sort(function(a,b){
         // Turn your strings into dates, and then subtract them
         // to get a value that is either negative, positive, or zero.
@@ -519,8 +523,9 @@ dataloading = async () => {
         console.log("properties created "); 
         console.log(e);       
     })
-    // console.log("properties created ");   
-    // console.log(new Date(data[0].datePosted)); 
+
+    
+    
   }
   
   dataloading()
