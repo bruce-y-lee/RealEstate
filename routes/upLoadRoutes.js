@@ -16,6 +16,7 @@ var storage = multer.diskStorage({
     //add file name to property data
     let name = req.body.address + '-'+ file.originalname; 
         name = name.toLowerCase();
+        name = name.replace(/\s/g, '-');
     try{
         let result = await Property.findOneAndUpdate({_id:req.body.propertyId}, {$push:{images:name}} );
     }
