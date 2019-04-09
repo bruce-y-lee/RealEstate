@@ -4,8 +4,7 @@ import React, { Component }from 'react';
 class HeaderNav extends Component {
     render(){
         const { location } = window;
-        // console.log(window.location);
-        // console.log(location.pathname);
+        //add active className on the navigation manu 
         const homeClass = location.pathname === "/" ? "active" : "";
         const propertiesClass= location.pathname.match(/^\/properties/) ? "dropdown active" : "dropdown";
         const contactClass=location.pathname.match(/^\/contact/) ? "active" : "";
@@ -41,14 +40,14 @@ class HeaderNav extends Component {
                     </li>
                     <li className={galleryClass}><a href="gallery.html">GALLERY</a></li>                                         
                     <li className="dropdown">
-                    <a className="dropdown-toggle" data-toggle="dropdown" href="blog-archive.html">BLOG <span className="caret"></span></a>
+                    <a className="dropdown-toggle" data-toggle="dropdown" href="/">BLOG <span className="caret"></span></a>
                     <ul className="dropdown-menu" role="menu">                
-                        <li><a href="blog-archive.html">BLOG</a></li>
-                        <li><a href="blog-single.html">BLOG DETAILS</a></li>                                            
+                        <li><a href="/">BLOG</a></li>
+                        <li><a href="/">BLOG DETAILS</a></li>                                            
                     </ul>
                     </li>
                     <li className={contactClass}><a href="/contact">CONTACT</a></li>
-                <li><a href="404.html">404 PAGE</a></li>
+                <li><a href="/postproperty">POST PROPERTY</a></li>
                 </ul>                            
                 </div>
                 {/* <!--/.nav-collapse -->        */}

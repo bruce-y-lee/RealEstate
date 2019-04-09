@@ -761,6 +761,7 @@ img {
 }
 .aa-properties-item .aa-properties-item-img img {
   width: 100%;
+  height: 220px;
 }
 .aa-properties-item .aa-tag {
   color: #fff;
@@ -799,6 +800,8 @@ img {
   display: inline;
   float: left;
   width: 100%;
+  height: 250px;
+  overflow: auto;
   padding: 10px;
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-about h3 {

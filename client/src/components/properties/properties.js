@@ -3,6 +3,7 @@ import _ from 'lodash';
 import Pagenation from './Pagenation';
 
 import PopularProperties from './PopularProperties';
+import numberWithCommas from '../../utils/numberWithCommas';
 import axios from 'axios';
 
 
@@ -92,7 +93,7 @@ class Properties extends Component {
                       </div>
                       <div className="aa-properties-detial">
                         <span className="aa-price">
-                          ${property.price}
+                          ${numberWithCommas(property.price)}
                         </span>
                         
                         <a className="aa-secondary-btn" href={`/properties/${property._id}` } value={property._id} onClick={this.handleDetail}>View Details</a>

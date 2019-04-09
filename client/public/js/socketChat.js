@@ -32,17 +32,15 @@ function scrollToBottom() {
 var loginUser 
 
 loginUser = jQuery.get('/api/current_user', function(data,status){
-    // console.log(status)
-    // console.log(data.name);
+    //get current user info
     loginUser = data.name;
 })
 
-if(loginUser == 'Agent'){
+if(loginUser == 'Agent'){ //if user is Agent
     document.getElementById('userList').style.display='block';
 }
 jQuery('.socketChat-float').on('click',function(){
-    // console.log("clicked")
-    // console.log(loginUser);
+    //if user is Agent
     if(loginUser == 'Agent'){
         document.getElementById('centered-form-wrapper-agent').style.display=='flex'? 
         document.getElementById('centered-form-wrapper-agent').style.display='none':document.getElementById('centered-form-wrapper-agent').style.display='flex'
@@ -54,16 +52,15 @@ jQuery('.socketChat-float').on('click',function(){
     }
     
 })
-console.log(loginUser);
-// console.log(loginUser.responseText);
 
+//join the chat
 jQuery('#centered-form').on('submit', function(e) {
   e.preventDefault();
   
     var params={name:jQuery('[name=chatJoinName]').val(),
                 room:jQuery('[name=chatJoinName]').val()
             }
-
+    
     socket.emit('join', params, function(err){
         if(err){
             // console.log(err);
@@ -76,7 +73,7 @@ jQuery('#centered-form').on('submit', function(e) {
     })
 
 });
-
+//join as agent to the chat
 jQuery('#centered-form-agent').on('submit', function(e) {
     e.preventDefault();
     
@@ -100,18 +97,14 @@ jQuery('#centered-form-agent').on('submit', function(e) {
 socket.on('connect', function() {
     console.log('connected to server');
 
-    // socket.emit('createMessage', {
-    //     from: 'client',
-    //     text: 'test message from client',
-    //     createdAt: new Date().getTime()
-    //   })
+    
 })
 
 
   
-
+//get newMessage from the server
 socket.on('newMessage', function(message) {
-    console.log(message);
+    // console.log(message);
     var formattedTime = moment(message.createdAt).format('h:mm a');
     var li = jQuery('<li></li>');
     // li.text(`${message.from}: ${message.text}`);
@@ -125,9 +118,9 @@ socket.on('newMessage', function(message) {
 socket.on('disconnect',function() {
     console.log('disconnected from server');
 })
-
+//get user list
 socket.on('updateUserList', function(users) {
-    console.log('Users list', users);
+    // console.log('Users list', users);
     var ul = jQuery('<ul></ul>');
   
     users.forEach(function(user) {

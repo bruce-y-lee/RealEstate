@@ -9,9 +9,7 @@ class Header extends Component {
     
     
     render() {
-        console.log("Header props?");
-        console.log(this.props.auth)
-        console.log(this.state)
+        
         return (
             <div>
                 <HeaderNav />

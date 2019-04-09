@@ -21,7 +21,7 @@ const Range = Slider.Range;
 
 const style = { width: 400, margin: 10 }; //style for big window
 // const style3 = { width: 500, margin: 10 }; 
-const style2 = { width: 300, margin: 10 };//style for side search
+const style2 = { width: 300, margin: 10};//style for side search
 
 
 
@@ -252,7 +252,7 @@ class AdvanceSearch extends Component {
     render() {
         
         let {location} = window;
-         console.log(location.pathname)
+        //  console.log(location.pathname)
         return (
             <div>
                 {this.searchRender(location.pathname)}

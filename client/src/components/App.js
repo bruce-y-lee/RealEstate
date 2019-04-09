@@ -14,6 +14,7 @@ import MyList from './properties/MyList';
 import Contact from './Contact';
 import Gallery from './Gallery';
 import aboutUs from './aboutUs';
+import PostPropertyNew from './post/PostPropertyNew';
 import LatestProperties from './properties/LatestProperties';
 import ourService from './ourService';
 import ourAgent from './ourAgent';
@@ -26,8 +27,8 @@ import latestNews from './latestNews';
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
-    console.log("App props")
-    console.log(this.props);
+    // console.log("App props")
+    // console.log(this.props);
     // console.log(this.state)
   } 
   render() {
@@ -44,6 +45,7 @@ class App extends Component {
           <Route exact path='/properties/:propertyId' component={PropertyDetail}/>
           <Route exact path='/gallery' component={Gallery} />  
           <Route exact path='/contact' component={Contact} />  
+          <Route exact path='/postproperty' component={PostPropertyNew} />  
           <Route exact path='/' component={aboutUs}/>
           <Route exact path='/' component={LatestProperties}/>
           <Route exact path='/' component={ourService}/>

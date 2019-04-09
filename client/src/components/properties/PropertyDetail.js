@@ -4,6 +4,7 @@ import { fetchProperty, fetchPropertiesNear} from '../../actions';
 
 import axios from 'axios';
 import AdvanceSearch from './AdvanceSearch';
+import numberWithCommas from '../../utils/numberWithCommas';
 
 const pStyle = {
     backgroundColor: '#b57de0',
@@ -136,7 +137,7 @@ class PropertyDetail extends Component {
                     </div>
                     <div className="aa-properties-detial">
                         <span className="aa-price">
-                        ${property.price}
+                        ${numberWithCommas(property.price)}
                         </span>
                         <a className="aa-secondary-btn" href={`/properties/${property._id}`}>View Details</a>
                     </div>
@@ -175,7 +176,7 @@ class PropertyDetail extends Component {
                     <h2>{this.props.properties.title}</h2>
                     <h3>{this.props.properties.address && this.props.properties.address.streetAddress ? this.props.properties.address.streetAddress:null}, &nbsp;
                     {this.props.properties.address && this.props.properties.address.city ? this.props.properties.address.city: null}</h3>
-                    <span className="aa-price">${this.props.properties.price}</span>
+                    <span className="aa-price">${this.props.properties && this.props.properties.price? numberWithCommas(this.props.properties.price):null}</span>
                     {this.props.deleteProperty? <button className="aa-secondary-btn" style={pStyle} onClick={this.handleDelete}> Remove from My List</button>: 
                     <button className="aa-secondary-btn" style={pStyle} onClick={this.handleClick}>Add myList</button>}
                     
@@ -194,10 +195,10 @@ class PropertyDetail extends Component {
                     <div className="aa-properties-social">
                     <ul>
                         <li>Share</li>
-                        <li><a href="/"><i className="fa fa-facebook"></i></a></li>
-                        <li><a href="/"><i className="fa fa-twitter"></i></a></li>
-                        <li><a href="/"><i className="fa fa-google-plus"></i></a></li>
-                        <li><a href="/"><i className="fa fa-pinterest"></i></a></li>
+                        <li><a href="/"><i className="fab fa-facebook"></i></a></li>
+                        <li><a href="/"><i className="fab fa-twitter"></i></a></li>
+                        <li><a href="/"><i className="fab fa-google-plus"></i></a></li>
+                        <li><a href="/"><i className="fab fa-pinterest"></i></a></li>
                     </ul>
                     </div>
                     {/* <!-- Nearby properties --> */}

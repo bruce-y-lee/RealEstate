@@ -13,7 +13,9 @@
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
+    "react-widgets": "^4.4.10",
     "reactrangeslider": "^3.0.6",
+    "reactstrap": "^8.0.0",
     "redux": "^4.0.1",
     "redux-form": "^8.1.0",
     "redux-thunk": "^2.3.0"

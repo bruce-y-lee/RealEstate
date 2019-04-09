@@ -145,9 +145,26 @@ module.exports = app => {
     });
 
     
+    //delete property from database
+    // app.patch('/api/removeproperty', requireLogin, async (req, res) => {
+    app.patch('/api/removeproperty', async (req, res) => {
+        console.log("delete user id: ", req.body.propertyId);
+        // console.log(req.data.propertyId)
+        let result;
+
+        
+        try{
+            result = await Property.findOneAndDelete({_id:req.body.propertyId});
+        }
+        catch(e){
+            res.send(e);
+        }
 
 
-    
+        res.send(result);
+    });
+
+        
    
 
     

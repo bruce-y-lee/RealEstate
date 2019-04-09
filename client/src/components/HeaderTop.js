@@ -6,43 +6,41 @@ import Register from './Register';
 import Signin from './Signin';
 
 class HeaderTop extends Component  {
-    // constructor(props, context) {
-    //     super(props, context);
+    
         state = { 
             popupRegister: false,
             popupLogin: false
         };
-    // }
+    
     popupLoginToggle() {
-        console.log("popupLogin");
+        //control popup login page
+        
         this.setState({
             popupLogin: !this.state.popupLogin
         })
-        console.log(this.state.popupLogin);
+        // console.log(this.state.popupLogin);
     }
 
     popupRegisterToggle() {
+        //control popup register page
         this.setState({
             popupRegister: !this.state.popupRegister
         })
-        console.log(this.state.popupRegister);
+        // console.log(this.state.popupRegister);
     }
 
     renderUser() {
-        // return [
-        //     <button key="1" onClick={this.popupRegisterToggle.bind(this)} className="aa-register">Register</button>,
-        //     <button key="2" onClick={this.popupLoginToggle.bind(this)} className="aa-login"> &nbsp;&nbsp;Login&nbsp;&nbsp; </button>
-        // ]
+        
         switch (this.props.auth){
             case null:
                 return;
-            case false:
+            case false: //user not logged in
                 return [
                     <button key="1" onClick={this.popupRegisterToggle.bind(this)} className="aa-register">Register</button>,
                     <button key="2" onClick={this.popupLoginToggle.bind(this)} className="aa-login"> &nbsp;&nbsp;Login&nbsp;&nbsp; </button>
                 ]
                 
-            default:
+            default:// user logged in
                return [
                     
                     <span key="1" style={{color: 'white'}}>{this.props.auth.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>,
@@ -56,8 +54,7 @@ class HeaderTop extends Component  {
 
     render() {
         
-        console.log("HeaderTop props.auth?");
-        console.log(this.props.auth);
+        
         return (
         
             <header id="aa-header">  

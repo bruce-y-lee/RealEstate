@@ -6,8 +6,9 @@ const mongoose = require('mongoose');
 const passport = require('passport'); 
 const {mongoURI, cookieKey} = require('./config/keys');
 const bodyParser = require('body-parser')
-const socketIO = require('socket.io');
-const {generateMessage} = require('./utils/message');
+// const socketIO = require('socket.io');
+// const {generateMessage} = require('./utils/message');
+
 
 
 require('./models/User');
@@ -38,11 +39,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+
 require('./routes/authRoutes')(app);
 require('./routes/registerUserRoutes')(app);
 require('./routes/myListRoutes')(app);
 require('./routes/propertyRoutes')(app);
 require('./routes/etcRoutes')(app);
+require('./routes/uploadRoutes')(app);
 
 
 

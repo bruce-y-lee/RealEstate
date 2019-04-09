@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPropertiesLatest } from '../../actions';
+import numberWithCommas from '../../utils/numberWithCommas';
 
 // import Properties from './properties';
 import _ from 'lodash';
@@ -50,7 +51,7 @@ class LatestProperties extends Component {
                         </div>
                         <div className="aa-properties-detial">
                             <span className="aa-price">
-                            ${property.price}
+                            ${numberWithCommas(property.price)}
                             </span>
                             <a href={`/properties/${property._id}` } className="aa-secondary-btn">View Details</a>
                         </div>
