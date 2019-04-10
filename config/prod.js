@@ -14,7 +14,10 @@ module.exports = {
     emailKey: process.env.EMAIL_KEY,
     emailSecret: process.env.EMAIL_SECRET,
     
-    sendGridKey: process.env.SEND_GRID_KEY,
-    redirectDomain: process.env.REDIRECT_DOMAIN
+    redirectDomain: process.env.REDIRECT_DOMAIN,
+    amazonS3AccessKey: process.env.AMAZONS3_ACCESS_KEY,
+    amazonS3AccessKeySecret :process.env.AMAZONS3_ACCESS_KEY_SECRET,
+    amazonS3Region: process.env.AMAZONS3_REGION
+
 }
 

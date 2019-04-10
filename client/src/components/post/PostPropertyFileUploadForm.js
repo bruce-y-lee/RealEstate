@@ -15,13 +15,10 @@ class PostPropertyFileUploadForm extends Component {
     }
     componentDidMount() {
         //fetch created property info
-        // console.log(this.props.propertyId);
+        console.log(this.props.propertyId);
         this.props.fetchProperty(this.props.propertyId);
         
-        // console.log(this.props.onCancel);
-        // console.log(address);
-
-        // this.setState({address});
+        
     }
     fileSelectedHandler = event => {
         // console.log(event.target.files[0]);
@@ -58,7 +55,7 @@ class PostPropertyFileUploadForm extends Component {
         },
         }
         )
-
+        console.log(res);
         //reload property data to show images
         this.props.fetchProperty(this.props.propertyId);
     }
@@ -70,6 +67,7 @@ class PostPropertyFileUploadForm extends Component {
         // console.log("back to review? need to delete property data");
         let result = await axios.patch('/api/removeproperty',{propertyId:this.props.propertyId});
         
+        console.log(result);
         this.props.onUploadToReview();
         
     }
@@ -101,7 +99,7 @@ class PostPropertyFileUploadForm extends Component {
         if(this.props.properties && this.props.properties.images){
             return this.props.properties.images.map(i=>{
                 return (
-                    <img key={i} src={`img/item/${i}`} alt="img" style={{width:'150px'}}/>
+                    <img key={i} src={`https://real-estate-by-lee.s3.amazonaws.com/${i}`} alt="img" style={{width:'150px'}}/>
                 )
             })
         }

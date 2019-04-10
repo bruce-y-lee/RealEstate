@@ -1,6 +1,7 @@
 
 const mongoose = require('mongoose');
 const Property = mongoose.model('properties');
+const {deleteObject} = require('../services/upLoadToS3')
 
 module.exports = app => {
     app.get('/api/properties', async (req, res) => {
@@ -151,9 +152,17 @@ module.exports = app => {
         console.log("delete user id: ", req.body.propertyId);
         // console.log(req.data.propertyId)
         let result;
+        let {images} = await Property.findById(req.body.propertyId);
+        if(images.length!==0){// delete images in S3 server
+            images.map(image=>{
+                    deleteObject(image,res);
+            });
+        }
+            
 
         
-        try{
+        
+        try{ 
             result = await Property.findOneAndDelete({_id:req.body.propertyId});
         }
         catch(e){
