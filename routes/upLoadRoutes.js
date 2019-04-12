@@ -49,7 +49,17 @@ module.exports =  app => {
     app.post('/api/uploadproperty',async (req,res)=>{
         // console.log("upload property data ")
         // console.log(req.body);
-        var result = await new Property({...req.body,"address.city": req.body.city,"address.streetAddress":req.body.streetaddress,imageSource:'https://real-estate-by-lee.s3.amazonaws.com/'}).save();
+        let unit;
+        if(!req.body.unit)
+            unit = "";
+        else
+            unit = req.body.unit;
+
+        var result = await new Property({...req.body,
+            "address.unit": unit, "address.city": req.body.city,"address.streetAddress":req.body.streetaddress,"address.country":req.body.country,
+            "address.postalCode": req.body.postalCode, "address.province": req.body.province,
+            imageSource:'https://real-estate-by-lee.s3.amazonaws.com/',"datePosted": new Date().toISOString()
+            }).save();
         // console.log(result);
 
         res.send(result);

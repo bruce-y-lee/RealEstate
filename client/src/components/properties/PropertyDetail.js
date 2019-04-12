@@ -74,11 +74,17 @@ class PropertyDetail extends Component {
     propertyFeatures() {
        
         let feat = this.props.properties.features;
-       
+        let featu;
        //list of feature of the property 
         if(typeof(feat) == 'string'){
             // console.log(features);
-            let featu = feat.split(' ');
+            if(this.props.properties.imageSource){
+                featu = feat.split(',');
+            }
+            else{
+                featu = feat.split(' ');
+            }
+            
             let features = featu.filter(Boolean);
             return features.map(feature => {
                     feature = feature.replace('_', " ");

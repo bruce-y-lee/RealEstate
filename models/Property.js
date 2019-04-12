@@ -24,7 +24,7 @@ const propertySchema = new Schema({
     imageSource: String,
     videos:[],
     _user: [{type: Schema.Types.ObjectId, ref: 'User'}],
-    datePosted: String,
+    datePosted: Date,
     dateSold: Date,
     latResponded: Date
 });

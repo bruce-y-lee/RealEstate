@@ -96,7 +96,7 @@ class Properties extends Component {
                       </div>
                       <div className="aa-properties-detial">
                         <span className="aa-price">
-                          ${numberWithCommas(property.price)}
+                          ${property.price? numberWithCommas(property.price):null}
                         </span>
                         
                         <a className="aa-secondary-btn" href={`/properties/${property._id}` } value={property._id} onClick={this.handleDetail}>View Details</a>

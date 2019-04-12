@@ -132,8 +132,10 @@ class PostPropertyFileUploadForm extends Component {
         this.props.fetchProperty(this.props.propertyId);
     }
     clickNext = () => {
-        console.log("final?");
-        window.confirm("completed?");
+        // console.log("final?");
+        if(window.confirm("completed?")){
+            window.location = `/properties/${this.props.propertyId}`;
+        }
     }
     clickBack = async () =>{
         // console.log("back to review? need to delete property data");

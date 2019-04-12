@@ -39,13 +39,7 @@ class HeaderNav extends Component {
                     </ul>
                     </li>
                     <li className={galleryClass}><a href="gallery.html">GALLERY</a></li>                                         
-                    <li className="dropdown">
-                    <a className="dropdown-toggle" data-toggle="dropdown" href="/">BLOG <span className="caret"></span></a>
-                    <ul className="dropdown-menu" role="menu">                
-                        <li><a href="/">BLOG</a></li>
-                        <li><a href="/">BLOG DETAILS</a></li>                                            
-                    </ul>
-                    </li>
+                   
                     <li className={contactClass}><a href="/contact">CONTACT</a></li>
                 <li><a href="/postproperty">POST PROPERTY</a></li>
                 </ul>                            
