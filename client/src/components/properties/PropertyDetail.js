@@ -5,6 +5,9 @@ import { fetchProperty, fetchPropertiesNear} from '../../actions';
 import axios from 'axios';
 import AdvanceSearch from './AdvanceSearch';
 import numberWithCommas from '../../utils/numberWithCommas';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 
 const pStyle = {
     backgroundColor: '#b57de0',
@@ -13,7 +16,8 @@ const pStyle = {
 
 class PropertyDetail extends Component {
     state={
-        showDetailPage: true
+        showDetailPage: true,
+        selectedVideo: null
     }
     
     componentDidMount() {
@@ -33,12 +37,21 @@ class PropertyDetail extends Component {
             
 
         }
+        
+        if(this.props.properties.videos && this.props.properties.videos[0]){
+            this.setState({
+                selectedVideo: this.props.properties.videos[0]
+            })
+            console.log(this.props.properties.vidoes[0]);
+            console.log("videos?")
+       }
        
-
+        
     }
     
     propertyHeader(){
         // console.log(this.props)
+        console.log(this.props.properties);
         return (
            
             <section id="aa-property-header">
@@ -113,12 +126,14 @@ class PropertyDetail extends Component {
 
     }
     renderNearProperties = (fetchedData) => { 
+        
         return fetchedData.map(property => {
+            let imgSrc = property.imageSource? property.imageSource : 'img/item/';
             return (
                 <div className="col-md-6" key={`nearProperty ${property._id}`}>
                 <article className="aa-properties-item">
                     <a className="aa-properties-item-img" href={`/properties/${property._id}`}>
-                    <img alt="img" src={`img/item/${property.images[0]}`}/>
+                    <img alt="img" src={imgSrc+property.images[0] }/>
                     </a>
                     <div className={`aa-tag ${property.saleType}`}>
                     {this.renderSaleTag(property.saleType)}
@@ -137,7 +152,7 @@ class PropertyDetail extends Component {
                     </div>
                     <div className="aa-properties-detial">
                         <span className="aa-price">
-                        ${numberWithCommas(property.price)}
+                        ${property.price? numberWithCommas(property.price):null}
                         </span>
                         <a className="aa-secondary-btn" href={`/properties/${property._id}`}>View Details</a>
                     </div>
@@ -156,22 +171,60 @@ class PropertyDetail extends Component {
            
     
     }
+    renderSub(){
+        let imgSrc = this.props.properties.imageSource? this.props.properties.imageSource:'img/item/';
+        if(this.props.properties.images && this.props.properties.images[0]){
+            return this.props.properties.images.map(i=>{
+                return (<div key={`sliderImage ${i}`}>
+                     <img src={imgSrc+i} alt="img"/>
+                </div>
+               
+                )
+            })
+        }
+    }
+    // selectVideo = (e) =>{
+    //     console.log(e.target.value);
+    // }
+    videoList(){
+        let count =0;
+           return this.props.properties.videos.map(v =>{
+                count++;
+                return <li key = {v} value={v} onClick={()=>this.setState({selectedVideo:v})}>Video {count}</li>
+            })
+        
+    }
+    renderVideos(){
+        
+        console.log(this.state)
+        if(this.props.properties.videos && this.props.properties.videos.length > 1){
+            return(
+                <div>
+                    <iframe width="100%" height="480" src={this.state.selectedVideo? this.props.properties.imageSource+this.state.selectedVideo : this.props.properties.imageSource+this.props.properties.videos[0]} title="propertyVideo"frameBorder="0" allowFullScreen></iframe>
+                    <ul>
+                        {this.videoList()}
+                    </ul>
+                </div>
+            )
+        }else{
+            return <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" title="propertyVideo"frameBorder="0" allowFullScreen></iframe>
+        }
+
+    }
+    
     renderDetail(){
+        
         return(
             <div className="col-md-8">
+            
                 <div className="aa-properties-content"></div>
                     <div className="aa-properties-details">
-                    <div className="aa-properties-details-img">
-                    <img src={`img/item/${this.props.properties.images && this.props.properties.images[0]? this.props.properties.images[0]:null}`} alt="img"/>
-                    {this.props.deleteProperty? null : <img src={`img/item/${this.props.properties.images && this.props.properties.images[1]? this.props.properties.images[1]:null}`} alt="img"/>
-                        }
-                    {this.props.deleteProperty? null : <img src={`img/item/${this.props.properties.images && this.props.properties.images[2]? this.props.properties.images[2]:null}`} alt="img"/>
-                        }
-                    {this.props.deleteProperty? null : <img src={`img/item/${this.props.properties.images && this.props.properties.images[3]? this.props.properties.images[3]:null}`} alt="img"/>
-                        }
-                    {this.props.deleteProperty? null : <img src={`img/item/${this.props.properties.images && this.props.properties.images[4]? this.props.properties.images[4]:null}`} alt="img"/>
-                    }
-                    </div>
+                    
+                     <Carousel>
+                      {this.renderSub()}   
+                     </Carousel>
+                    
+                    {/* </div> */}
                     <div className="aa-properties-info">
                     <h2>{this.props.properties.title}</h2>
                     <h3>{this.props.properties.address && this.props.properties.address.streetAddress ? this.props.properties.address.streetAddress:null}, &nbsp;
@@ -187,7 +240,7 @@ class PropertyDetail extends Component {
                     </ul>
                         
                     <h4>Property Video</h4>
-                    <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" title="propertyVideo"frameBorder="0" allowFullScreen></iframe>
+                    {this.renderVideos()}
                     <h4>Property Map</h4>
                     <iframe src={`https://www.google.com/maps/embed/v1/place?q=${this.props.properties.address && this.props.properties.address.city ? this.props.properties.address.city: null},${this.props.properties.address && this.props.properties.address.country ? this.props.properties.address.country: null}&key=AIzaSyAf_FXuOWdjTUcby3nfonQwFZUy5Wcrqe8`} width="100%" height="450" title="propertyMap" frameBorder="0" style={{border: "0"}} allowFullScreen></iframe>
                     </div>

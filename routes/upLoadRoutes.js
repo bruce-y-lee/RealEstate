@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Property = mongoose.model('properties');
 // const aws = require('aws-sdk')
 const multer = require('multer');
-const {uploadS3} = require('../services/upLoadToS3')
+const {uploadS3,deleteObject} = require('../services/upLoadToS3')
 // const upload = multer({dest:'../client/public/img/'});
 
 //upload to local
@@ -40,7 +40,7 @@ const {uploadS3} = require('../services/upLoadToS3')
 
 
 //upload to S3
-const upload = uploadS3.single('file');
+const upload = uploadS3.array('file');
 
 module.exports =  app => {
 
@@ -49,7 +49,7 @@ module.exports =  app => {
     app.post('/api/uploadproperty',async (req,res)=>{
         // console.log("upload property data ")
         // console.log(req.body);
-        var result = await new Property({...req.body,"address.city": req.body.city,"address.streetAddress":req.body.streetaddress}).save();
+        var result = await new Property({...req.body,"address.city": req.body.city,"address.streetAddress":req.body.streetaddress,imageSource:'https://real-estate-by-lee.s3.amazonaws.com/'}).save();
         // console.log(result);
 
         res.send(result);
@@ -67,10 +67,25 @@ module.exports =  app => {
             
 
             // console.log(req.file.location);
-             return res.status(200).send(req.file.location)
+             return res.status(200).send(req.file)
  
         })
      });
+
+     app.patch('/api/uploadpropertyremoveimage',async (req,res)=>{
+        
+        deleteObject(req.body.image,res);
+        let result = await Property.findByIdAndUpdate(req.body.propertyId, {$pull:{images:req.body.image}} );
+        res.send(result); 
+     })
+     app.patch('/api/uploadpropertyremovevideo',async (req,res)=>{
+        
+        deleteObject(req.body.video,res);
+        console.log(req.body.video);
+        let result = await Property.findByIdAndUpdate(req.body.propertyId, {$pull:{videos:req.body.video}} );
+        console.log(result);
+        res.send(result); 
+     })
 
     
 

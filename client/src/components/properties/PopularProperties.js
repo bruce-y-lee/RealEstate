@@ -18,11 +18,12 @@ class PopularProperties extends Component {
 
         return _.map(fetchedData, (property) => {
             // const rand = parseInt(min + Math.random() * (max - min));
+            let imgSrc = property.imageSource? property.imageSource :'img/item/';
             return (
                 <div className="media" key={`popularProperties ${property._id}`}>
                 <div className="media-left">
                   <a href={`/properties/${property._id}`}>
-                    <img className="media-object" src={`img/item/${property.images[0]}`} alt="img"/>
+                    <img className="media-object" src={imgSrc+property.images[0]} alt="img"/>
                   </a>
                 </div>
                 <div className="media-body">

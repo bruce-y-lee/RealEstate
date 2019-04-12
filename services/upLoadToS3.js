@@ -27,7 +27,13 @@ const uploadS3 = multer({
         name = name.toLowerCase();
         name = name.replace(/\s/g, '-');
         try{
-            await Property.findOneAndUpdate({_id:req.body.propertyId}, {$push:{images:name}} );
+          if(file.mimetype.includes("image")){
+            await Property.findOneAndUpdate({_id:req.body.propertyId}, {$addToSet:{images:name}} );
+          }
+          if(file.mimetype.includes("video")){
+            await Property.findOneAndUpdate({_id:req.body.propertyId}, {$addToSet:{videos:name}} );
+          }
+            
         }
         catch(e){
             console.log(e)

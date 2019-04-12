@@ -8,12 +8,7 @@ import PostPropertyFileUpload from './PostPropertyFileUploadForm';
 
 class PostPropertyNew extends Component {
 
-    // constructor(props){
-    //     super(props);
-
-    //     this.state = { new: true };
-    // } 
-    // same as below initialization 
+    
     state = { 
             showForm: true,
             showFormReview: false,

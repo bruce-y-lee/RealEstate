@@ -89,7 +89,8 @@ class PostPropertyForm extends Component {
                 {/* <form onSubmit={this.props.handleSubmit(() => this.props.onSurveySubmit())}> */}
                 <div className="container">
                     <div className="row">
-                    
+                    <h2>Property Entries</h2>
+                    <br/>
                      <form >
                         <div className="col-md-6">
                 
@@ -136,7 +137,7 @@ function validate(values) {
 
     // _.each(FIELDS, ({ name, noValueError }) => {
     _.each(formPropertyFields, ({ name }) => {
-        if(!values[name]){
+        if(!values[name] && name !=='unit'){
             errors[name] = 'You must provide a value'
         }
     })

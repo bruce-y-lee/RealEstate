@@ -44,6 +44,7 @@ const PostPropertyFormReview = ({onCancel, formValues, submitSurvey, history, on
             <div className="row">
              <div className="col-md-8">
               <h2>Please confirm your entries</h2>
+              <br/>
                     <div>
                     {reviewFields}
                     

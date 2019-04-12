@@ -21,6 +21,7 @@ const propertySchema = new Schema({
     features:String,
     saleType: String,
     images:[],
+    imageSource: String,
     videos:[],
     _user: [{type: Schema.Types.ObjectId, ref: 'User'}],
     datePosted: String,

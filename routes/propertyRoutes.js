@@ -152,10 +152,15 @@ module.exports = app => {
         console.log("delete user id: ", req.body.propertyId);
         // console.log(req.data.propertyId)
         let result;
-        let {images} = await Property.findById(req.body.propertyId);
+        let {images,videos} = await Property.findById(req.body.propertyId);
         if(images.length!==0){// delete images in S3 server
             images.map(image=>{
                     deleteObject(image,res);
+            });
+        }
+        if(videos.length!==0){// delete images in S3 server
+            videos.map(v=>{
+                    deleteObject(v,res);
             });
         }
             

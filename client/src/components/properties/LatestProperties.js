@@ -28,11 +28,12 @@ class LatestProperties extends Component {
 
         return _.map(fetchedData, (property) => {
             // const rand = parseInt(min + Math.random() * (max - min));
+            let imgSrc = property.imageSource? property.imageSource :'img/item/';
             return (
                 <div className="col-md-4" key={property._id}>
                     <article className="aa-properties-item">
                         <a href={`/properties/${property._id}` } className="aa-properties-item-img">
-                        <img src={`img/item/${property.images[0]}`} alt="img" />
+                        <img src={imgSrc+property.images[0]} alt="img" />
                         </a>
                         <div className={`aa-tag ${property.saleType}`}>
                         {this.renderSaleTag(property.saleType)}

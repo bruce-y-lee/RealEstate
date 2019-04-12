@@ -70,11 +70,14 @@ class Properties extends Component {
         return _.map(data, (property) => {
             // const rand = parseInt(min + Math.random() * (max - min));
             // console.log(rand);
+            let imgSrc = property.imageSource? property.imageSource:'img/item/';
             return (
                 <li key={property._id}>
                   <article className="aa-properties-item">
                     <a className="aa-properties-item-img" href={`/properties/${property._id}` }>
-                      <img alt="img" src={`img/item/${property.images[0]}`}/>
+                      {/* <img alt="img" src={`img/item/${property.images[0]}`}/> */}
+                      <img alt="img" src={imgSrc+property.images[0]}/>
+
                     </a>
                     <div className={`aa-tag ${property.saleType}`}>
                     {this.renderSaleTag(property.saleType)}
