@@ -22,43 +22,46 @@ module.exports = app => {
     app.post('/api/properties', async (req, res) => {
         // req.user
         // console.log(req.body);
+
         let properties;
+        let c = req.body; 
         
         try{
-            properties = await Property.find({price:{$gte:req.body.value2[0], $lte:req.body.value2[1]},
-                                sq:{$gte:req.body.value1[0],$lte:req.body.value1[1]}            
-                    }).limit(100);
+            properties = await Property.find({price:{$gte:c.price[0], $lte:c.price[1]},
+                                sq:{$gte:c.sq[0],$lte:c.sq[1]}            
+                    });
+          
         }catch(e){
             console.log(e);
         }        
-
-        if(req.body.Location){
+        
+        if(c.Location && c.Location !== "Location"){
            properties =  properties.filter(i => {
                return i.address.city == req.body.Location
            })
            
         }
-        if(req.body.PropertyType){
+        if(c.PropertyType && c.PropertyType !== "Property Type"){
             properties =  properties.filter(i => {
                 return i.propertyType == req.body.PropertyType
             })
             
          }
 
-         if(req.body.Bedrooms){
+         if(c.Bedrooms && c.Bedrooms !== "Bedrooms Min"){
             properties =  properties.filter(i => {
                 return i.bedrooms >= req.body.Bedrooms
             })
             
          }
 
-         if(req.body.Bathrooms){
+         if(c.Bathrooms && c.Bathrooms !== "Bathrooms Min"){
             properties =  properties.filter(i => {
                 return i.bathrooms >= req.body.Bathrooms
             })
             
          }
-        // console.log(properties);
+        
         res.send(properties);
     });
     //property detail route

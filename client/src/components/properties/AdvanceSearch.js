@@ -32,29 +32,34 @@ class AdvanceSearch extends Component {
     state = {
         showSearchedList: false,
         
-        value1:[1000, 2000],
-        value2:[1000000,3000000]
+          
+        condition:{
+            sq:[1000,2000],
+            price:[1000000,3000000]
+            }
+            
+        
 
     }
 
     handleChange = (e) => {
         // console.log(this.state);
         this.setState({
-            [e.target.name]:e.target.value
+            condition:{
+                ...this.state.condition,
+                [e.target.name]:e.target.value
+            }
+            
         })
-        this.setState({
-            areaMin: this.refs.areaMin.textContent,
-            areaMax: this.refs.areaMax.textContent,
-            priceMin: this.refs.priceMin.textContent,
-            priceMax: this.refs.priceMax.textContent
-
-        })
-        // console.log("advance search select location");
+      
     }
     //sq value change
     handleOnChange = (value) => {
         this.setState({
-          value1: value
+          condition:{
+              ...this.state.condition,
+              sq:value
+          } 
         })
         // console.log(this.state.value)
       }
@@ -62,7 +67,11 @@ class AdvanceSearch extends Component {
     //price value change
     handleOnChange2 = (value) => {
     this.setState({
-        value2: value
+        condition:{
+            ...this.state.condition,
+            price: value
+        }
+        
     })
     // console.log(this.state.value2)
     }
@@ -75,7 +84,7 @@ class AdvanceSearch extends Component {
         e.preventDefault();
         
         
-        const res = await axios.post('/api/properties',this.state);
+        const res = await axios.post('/api/properties',this.state.condition);
         
         this.setState({
             propertyData: res.data,
@@ -84,7 +93,7 @@ class AdvanceSearch extends Component {
         
         if(this.props.search){
             this.props.search();
-            console.log("search!")
+            // console.log("search!")
         }
             
         
@@ -117,6 +126,7 @@ class AdvanceSearch extends Component {
             );
     
 }
+
     searchRender(pathName) {
         
         return(
@@ -162,9 +172,9 @@ class AdvanceSearch extends Component {
                           <div className="aa-single-filter-search">
                               <span>AREA (SQ)</span>
                               <span>FROM</span>
-                              <span id="skip-value-lower" className="example-val"  ref="areaMin" >{this.state.value1[0]}</span>
+                              <span id="skip-value-lower" className="example-val"  ref="areaMin" >{this.state.condition.sq[0]}</span>
                               <span>TO</span>
-                              <span id="skip-value-upper" className="example-val"  ref="areaMax" >{this.state.value1[1]}</span>
+                              <span id="skip-value-upper" className="example-val"  ref="areaMax" >{this.state.condition.sq[1]}</span>
                               
                               <div style={style}>
       
@@ -176,9 +186,9 @@ class AdvanceSearch extends Component {
                           <div className="aa-single-filter-search">
                               <span>PRICE ($)</span>
                               <span>FROM</span>
-                              <span id="skip-value-lower2" className="example-val" ref="priceMin" >{this.numberWithCommas(this.state.value2[0])}</span>
+                              <span id="skip-value-lower2" className="example-val" ref="priceMin" >{this.numberWithCommas(this.state.condition.price[0])}</span>
                               <span>TO</span>
-                              <span id="skip-value-upper2" className="example-val" ref="priceMax" >{this.numberWithCommas(this.state.value2[1])}</span>
+                              <span id="skip-value-upper2" className="example-val" ref="priceMax" >{this.numberWithCommas(this.state.condition.price[1])}</span>
                               
                               <div style={style}>
        
@@ -217,9 +227,9 @@ class AdvanceSearch extends Component {
                   <div className="aa-single-filter-search">
                     <span>AREA (SQ)</span>
                     <span>FROM</span>
-                    <span id="skip-value-lower" className="example-val"  ref="areaMin" >{this.state.value1[0]}</span>
+                    <span id="skip-value-lower" className="example-val"  ref="areaMin" >{this.state.condition.sq[0]}</span>
                     <span>TO</span>
-                    <span id="skip-value-upper" className="example-val"  ref="areaMax" >{this.state.value1[1]}</span>
+                    <span id="skip-value-upper" className="example-val"  ref="areaMax" >{this.state.condition.sq[1]}</span>
                     <div style={style2}>
                         <Range min={500} max={3000} allowCross={false} defaultValue={[1000, 2000]} onChange={this.handleOnChange} />
                     </div>                  
@@ -227,9 +237,9 @@ class AdvanceSearch extends Component {
                   <div className="aa-single-filter-search">
                     <span>PRICE ($)</span>
                     <span>FROM</span>
-                    <span id="skip-value-lower2" className="example-val" ref="priceMin" >{this.numberWithCommas(this.state.value2[0])}</span>
+                    <span id="skip-value-lower2" className="example-val" ref="priceMin" >{this.numberWithCommas(this.state.condition.price[0])}</span>
                     <span>TO</span>
-                    <span id="skip-value-upper2" className="example-val" ref="priceMax" >{this.numberWithCommas(this.state.value2[1])}</span>                    
+                    <span id="skip-value-upper2" className="example-val" ref="priceMax" >{this.numberWithCommas(this.state.condition.price[1])}</span>                    
                     <div style={style2}>
                     <Range min={500000} max={5000000} allowCross={false} defaultValue={[1000000, 3000000]} onChange={this.handleOnChange2} />
                     </div>     
